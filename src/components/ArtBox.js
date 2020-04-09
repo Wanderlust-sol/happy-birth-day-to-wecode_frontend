@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
+import ModalVote from "components/Modal";
 
-const ArtBox = (props) => {
+const ArtBox = ({ image }) => {
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
   const imageRef = useRef(null);
 
   const getImageSize = () => {
@@ -20,9 +22,15 @@ const ArtBox = (props) => {
 
   return (
     <Container>
+      <ModalVote
+        image={image}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+      />
       <ArtContainer>
         <Art
-          src={props.image}
+          onClick={() => setIsVisible(!isVisible)}
+          src={image}
           ref={imageRef}
           width="300"
           height="200"
@@ -66,6 +74,7 @@ const Art = styled.img`
   object-fit: cover;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  cursor: pointer;
 `;
 
 const Content = styled.div`
