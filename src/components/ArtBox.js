@@ -8,7 +8,7 @@ const ArtBox = props => {
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
-  const { artist, image_urls, batch } = props.info;
+  const { artist, image_urls, batch, bottom } = props.info;
 
   const handleVote = async () => {
     alert("투표되었습니다~! 땡큐 베리 마취");
@@ -46,18 +46,20 @@ const ArtBox = props => {
           Height={realHeight}
         ></Art>
       </ArtContainer>
-      <Content pop={popup}>
-        <ContentTitle>
-          <Name>{batch}기 {artist}</Name>
-          <Vote onClick={() => setPopup(true)}>투표하기</Vote>
-        </ContentTitle>
-        <PopupContainer>
-          <Button>
-            <Yes onClick={handleVote}>투표할래!</Yes>
-            <No onClick={() => setPopup(false)}>다른거 할래!</No>
-          </Button>
-        </PopupContainer>
-      </Content>
+      {bottom !== false && (
+        <Content pop={popup}>
+          <ContentTitle>
+            <Name>{batch}기 {artist}</Name>
+            <Vote onClick={() => setPopup(true)}>투표하기</Vote>
+          </ContentTitle>
+          <PopupContainer>
+            <Button>
+              <Yes onClick={handleVote}>투표할래!</Yes>
+              <No onClick={() => setPopup(false)}>다른거 할래!</No>
+            </Button>
+          </PopupContainer>
+        </Content>
+      )}
     </Container>
   );
 };
