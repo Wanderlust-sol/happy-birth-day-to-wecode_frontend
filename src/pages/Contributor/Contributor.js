@@ -33,67 +33,107 @@ export class Contributor extends Component {
             <img src={contributorImg} alt="img" />
             <span className="date">2020.04.10</span>
             <span className="nameTag park">
-              <a href={park}>멘토 박지훈</a>
+              <a href={park} rel="noopener noreferrer" target="_blank">
+                멘토 박지훈
+              </a>
             </span>
             <span className="nameTag lee">
-              <a href={lee}>멘토 이상록</a>
+              <a href={lee} rel="noopener noreferrer" target="_blank">
+                멘토 이상록
+              </a>
             </span>
             <span className="nameTag ji">
-              <a href={ji}>4기 지소연</a>
+              <a href={ji} rel="noopener noreferrer" target="_blank">
+                4기 지소연
+              </a>
             </span>
             <span className="nameTag yang">
-              <a href={yang}>멘토 양준식</a>
+              <a href={yang} rel="noopener noreferrer" target="_blank">
+                멘토 양준식
+              </a>
             </span>
             <span className="nameTag kim">
-              <a href={kim}>멘토 김예리</a>
+              <a href={kim} rel="noopener noreferrer" target="_blank">
+                멘토 김예리
+              </a>
             </span>
             <span className="nameTag shim">
-              <a href={shim}>6기 심형민</a>
+              <a href={shim} rel="noopener noreferrer" target="_blank">
+                6기 심형민
+              </a>
             </span>
             <span className="nameTag kwon">
-              <a href={kwon}>6기 권태솔</a>
+              <a href={kwon} rel="noopener noreferrer" target="_blank">
+                6기 권태솔
+              </a>
             </span>
             <span className="nameTag oh">
-              <a href={oh}>6기 오종택</a>
+              <a href={oh} rel="noopener noreferrer" target="_blank">
+                6기 오종택
+              </a>
             </span>
             <span className="nameTag leeso">
-              <a href={leeso}>6기 이소헌</a>
+              <a href={leeso} rel="noopener noreferrer" target="_blank">
+                6기 이소헌
+              </a>
             </span>
             <span className="nameTag yoo">
-              <a href={yoo}>6기 유경희</a>
+              <a href={yoo} rel="noopener noreferrer" target="_blank">
+                6기 유경희
+              </a>
             </span>
           </ContributorImg>
           <NameList>
             <div>Wecoders</div>
             <li>
-              <a href={kim}>멘토 김예리</a>
+              <a href={kim} rel="noopener noreferrer" target="_blank">
+                멘토 김예리
+              </a>
             </li>
             <li>
-              <a href={park}>멘토 박지훈</a>
+              <a href={park} rel="noopener noreferrer" target="_blank">
+                멘토 박지훈
+              </a>
             </li>
             <li>
-              <a href={yang}>멘토 양준식</a>
+              <a href={yang} rel="noopener noreferrer" target="_blank">
+                멘토 양준식
+              </a>
             </li>
             <li>
-              <a href={lee}>멘토 이상록</a>
+              <a href={lee} rel="noopener noreferrer" target="_blank">
+                멘토 이상록
+              </a>
             </li>
             <li>
-              <a href={ji}>4기 지소연</a>
+              <a href={ji} rel="noopener noreferrer" target="_blank">
+                4기 지소연
+              </a>
             </li>
             <li>
-              <a href={kwon}>6기 권태솔</a>
+              <a href={kwon} rel="noopener noreferrer" target="_blank">
+                6기 권태솔
+              </a>
             </li>
             <li>
-              <a href={shim}>6기 심형민</a>
+              <a href={shim} rel="noopener noreferrer" target="_blank">
+                6기 심형민
+              </a>
             </li>
             <li>
-              <a href={oh}>6기 오종택</a>
+              <a href={oh} rel="noopener noreferrer" target="_blank">
+                6기 오종택
+              </a>
             </li>
             <li>
-              <a href={yoo}>6기 유경희</a>
+              <a href={yoo} rel="noopener noreferrer" target="_blank">
+                6기 유경희
+              </a>
             </li>
             <li>
-              <a href={leeso}>6기 이소헌</a>
+              <a href={leeso} rel="noopener noreferrer" target="_blank">
+                6기 이소헌
+              </a>
             </li>
           </NameList>
         </Body>
