@@ -1,46 +1,70 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import axios from "axios";
+import ArtBox from "components/ArtBox";
 import anivimg from "../img/title@2x.png";
-import Artlist from "../components/ArtList";
+
+const artInfo = {
+  '/poem3': {
+    url: 2,
+    data: '삼행시'
+  },
+  '/pic': {
+    url: 1,
+    data: '그림'
+  },
+  '/poem': {
+    url: 3,
+    data: '시'
+  }
+};
 
 class Main extends Component {
+
   constructor(props) {
     super(props);
-    if (
-      (props.location.pathname === "/") |
-      (props.location.pathname === "/poem3")
-    ) {
-      this.state = {
-        activeState: "/poem3",
-      };
-    } else
-      this.state = {
-        activeState: props.location.pathname,
-      };
+
+    let activeTab = props.location.pathname;
+
+    if (props.location.pathname === "/") {
+      activeTab = '/poem3'
+    }
+
+    this.state = {
+      activeTab,
+      data: []
+    };
   }
 
-  toPoem3 = () => {
-    this.setState({
-      activeState: "/poem3",
-    });
-    this.props.history.push("/poem3");
-  };
+  componentDidMount() {
+    this.fetchData();
+  }
 
-  toPic = () => {
-    this.setState({
-      activeState: "/pic",
-    });
-    this.props.history.push("/pic");
-  };
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.activeTab !== this.state.activeTab) {
+      this.fetchData();
+    }
+  }
 
-  toPoem = () => {
+  async fetchData() {
+    const { activeTab } = this.state;
+    const result = await axios(`http://10.58.1.60:8000/vote/artwork/${artInfo[activeTab].url}`);
+
     this.setState({
-      activeState: "/poem",
+      data: result.data[artInfo[activeTab].data]
+    })
+  }
+
+  toPage = path => {
+    this.setState({
+      activeTab: path,
     });
-    this.props.history.push("/poem");
+
+    this.props.history.push(path);
   };
 
   render() {
+    const { activeTab, data } = this.state;
     return (
       <MainWrap>
         <MainAniv>
@@ -48,70 +72,21 @@ class Main extends Component {
         </MainAniv>
         <UlWrap>
           <MainUl>
-            {this.state.activeState === "/poem3" ? (
-              <Mainli>
-                <a class="poem3Selected" onClick={this.toPoem3}>
-                  삼 행 시
-                </a>
-              </Mainli>
-            ) : (
-              <Mainli>
-                <a class="poem3" onClick={this.toPoem3}>
-                  삼 행 시
-                </a>
-              </Mainli>
-            )}
-            {this.state.activeState === "/pic" ? (
-              <Mainli>
-                <a class="picSelected" onClick={this.toPic}>
-                  그 림
-                </a>
-              </Mainli>
-            ) : (
-              <Mainli>
-                <a class="pic" onClick={this.toPic}>
-                  그 림
-                </a>
-              </Mainli>
-            )}
-            {this.state.activeState === "/poem" ? (
-              <Mainli>
-                <a class="poemSelected" onClick={this.toPoem}>
-                  시
-                </a>
-              </Mainli>
-            ) : (
-              <Mainli>
-                <a class="poem" onClick={this.toPoem}>
-                  시
-                </a>
-              </Mainli>
-            )}
+            <Mainli selected={activeTab === "/poem3"} onClick={() => this.toPage('/poem3')}>
+              삼 행 시
+            </Mainli>
+            <Mainli selected={activeTab === "/pic"} onClick={() => this.toPage('/pic')}>
+              그 림
+            </Mainli>
+            <Mainli selected={activeTab === "/poem"} onClick={() => this.toPage('/poem')}>
+              시
+            </Mainli>
           </MainUl>
         </UlWrap>
-        {this.state.activeState === "/poem3" ? (
-          <MainTabWrap>
-            <MainTabThreePoem>
-              <Artlist></Artlist>
-            </MainTabThreePoem>
-          </MainTabWrap>
-        ) : (
-          <div></div>
-        )}
-        {this.state.activeState === "/pic" ? (
-          <MainTabWrap>
-            <MainTabPicture>그림</MainTabPicture>
-          </MainTabWrap>
-        ) : (
-          <div></div>
-        )}
-        {this.state.activeState === "/poem" ? (
-          <MainTabWrap>
-            <MainTabPoem>시</MainTabPoem>
-          </MainTabWrap>
-        ) : (
-          <div></div>
-        )}
+
+        <MainTabWrap>
+          {data.map(el => <ArtBox info={el}/>)}
+        </MainTabWrap>
       </MainWrap>
     );
   }
@@ -124,25 +99,6 @@ const MainWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-`;
-
-const Header = styled.div`
-  width: 100%;
-  height: 64px;
-  background-color: #000000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  color: white;
-  font-weight: 700;
-  font-size: 23px;
-  img {
-    width: 150px;
-  }
-`;
-const MainTitleImg = styled.img`
-  cursor: pointer;
 `;
 
 const MainAniv = styled.div`
@@ -197,64 +153,11 @@ const Mainli = styled.li`
   width: 250px;
   height: 50px;
   text-align: center;
-  a.poem3 {
+  background-color:  ${({ selected }) => selected ? 'black' : ''};
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+   
     font-weight: 900;
     font-size: 21px;
-    color: black;
-  }
-  a.poem3Selected {
-    background-color: black;
-    color: white;
-    font-weight: 900;
-    font-size: 21px;
-    width: 250px;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    border: 1px solid black;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    background: linear-gradient(#000000, #323232);
-  }
-  a.pic {
-    font-size: 21px;
-    color: black;
-    font-weight: 900;
-  }
-  a.picSelected {
-    font-size: 21px;
-    color: white;
-    font-weight: 900;
-    background-color: black;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    width: 250px;
-    height: 50px;
-    border: 1px solid black;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    background: linear-gradient(#000000, #323232);
-  }
-  a.poem {
-    font-size: 21px;
-    color: black;
-    font-weight: 900;
-  }
-  a.poemSelected {
-    font-size: 21px;
-    color: white;
-    font-weight: 900;
-    background-color: black;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    width: 250px;
-    height: 50px;
-    border: 1px solid black;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    background: linear-gradient(#000000, #323232);
-  }
+    color: ${({ selected }) => selected ? 'white' : 'black'};
 `;
