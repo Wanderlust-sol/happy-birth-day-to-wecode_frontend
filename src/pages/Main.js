@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import ArtBox from "components/ArtBox";
 import anivimg from "../img/title@2x.png";
+import { API_URL } from 'config.js';
 
 const artInfo = {
   '/poem3': {
@@ -49,7 +50,7 @@ class Main extends Component {
 
   async fetchData() {
     const { activeTab } = this.state;
-    const result = await axios(`http://localhost:8000/artwork/${artInfo[activeTab].url}`);
+    const result = await axios(`http://localhost:8080/artwork/${artInfo[activeTab].url}`);
 
     this.setState({
       data: result.data[artInfo[activeTab].data]

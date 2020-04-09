@@ -3,6 +3,9 @@ import axios from "axios";
 import { API_URL } from "config";
 import styled from "styled-components";
 
+
+
+
 const ArtBox = props => {
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
@@ -14,7 +17,7 @@ const ArtBox = props => {
     // alert("투표되었습니다~! 땡큐 베리 마취");
     // setPopup(false);
     try {
-      const res = await axios.post("http://localhost:8000/vote", {
+      const res = await axios.post("http://localhost:8080/vote", {
         artwork: artwork_id,
       });
       const result = res;

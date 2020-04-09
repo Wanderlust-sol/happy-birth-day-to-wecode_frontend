@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import ArtBox from "components/ArtBox";
+import { API_URL } from 'config.js';
 
 class Result extends Component {
 
@@ -11,17 +12,17 @@ class Result extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:8000/result/1').then(res => res.json()).then(res => {
+    fetch(`${API_URL}/result/1`).then(res => res.json()).then(res => {
       console.log(res)
       this.setState({ drawing: res.results.slice(0,3) })
     })
 
-    fetch('http://localhost:8000/result/2').then(res => res.json()).then(res => {
+    fetch(`${API_URL}/result/2`).then(res => res.json()).then(res => {
       console.log(res)
       this.setState({ poem3: res.results.slice(0,3) })
     })
 
-    fetch('http://localhost:8000/result/3').then(res => res.json()).then(res => {
+    fetch(`${API_URL}/result/3`).then(res => res.json()).then(res => {
       console.log(res)
       this.setState({ poem: res.results.slice(0,3) })
     })
