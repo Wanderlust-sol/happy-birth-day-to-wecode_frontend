@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "img/falsekind.png";
 
-const ArtBox = () => {
+const ArtBox = (props) => {
+  const [realWidth, setRealWidth] = useState(0);
+  const [realHeight, setRealHeight] = useState(0);
+  const imageRef = useRef(null);
+
+  const getImageSize = () => {
+    const realWidth = imageRef.current.naturalWidth;
+    const realHeight = imageRef.current.naturalHeight;
+    setRealWidth(realWidth);
+    setRealHeight(realHeight);
+    console.log(realWidth, realHeight);
+  };
+
+  useEffect(() => {
+    getImageSize();
+  }, []);
+
   return (
     <Container>
-      <Art src={Image}></Art>
+      <ArtContainer>
+        <Art
+          src={Image}
+          ref={imageRef}
+          Width={realWidth}
+          Height={realHeight}
+        ></Art>
+      </ArtContainer>
       <Content>
         <Name>6기 오종택</Name>
         <Vote>투표하기</Vote>
@@ -26,9 +49,17 @@ const Container = styled.div`
   display: inline-block;
 `;
 
-const Art = styled.img`
-  width: 100%;
+const ArtContainer = styled.div`
+  width: 300px;
   height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Art = styled.img`
+  width: ${(props) => (props.Width > props.Height ? "100%" : props.Width)};
+  height: ${(props) => (props.Height >= props.Width ? "100%" : props.Height)};
   margin-bottom: -2px;
 `;
 

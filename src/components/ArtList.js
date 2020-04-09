@@ -15,6 +15,9 @@ const ArtList = () => {
           <ArtBox></ArtBox>
           <ArtBox></ArtBox>
           <ArtBox></ArtBox>
+          {/* {x.map(item => (
+            <ArtBox item={item} />
+          ))} */}
         </List>
       </Container>
     </>
@@ -30,5 +33,5 @@ const Container = styled.div`
 `;
 
 const List = styled.div`
-  width: 80%;
+  width: 1440px;
 `;
