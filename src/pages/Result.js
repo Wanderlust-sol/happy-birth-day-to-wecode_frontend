@@ -11,17 +11,17 @@ class Result extends Component {
   };
 
   componentDidMount() {
-    fetch('http://52.78.54.86:8000/result/1').then(res => res.json()).then(res => {
+    fetch('http://localhost:8000/result/1').then(res => res.json()).then(res => {
       console.log(res)
       this.setState({ drawing: res.results.slice(0,3) })
     })
 
-    fetch('http://52.78.54.86:8000/result/2').then(res => res.json()).then(res => {
+    fetch('http://localhost:8000/result/2').then(res => res.json()).then(res => {
       console.log(res)
       this.setState({ poem3: res.results.slice(0,3) })
     })
 
-    fetch('http://52.78.54.86:8000/result/3').then(res => res.json()).then(res => {
+    fetch('http://localhost:8000/result/3').then(res => res.json()).then(res => {
       console.log(res)
       this.setState({ poem: res.results.slice(0,3) })
     })

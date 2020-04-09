@@ -14,7 +14,7 @@ const ArtBox = props => {
     // alert("투표되었습니다~! 땡큐 베리 마취");
     // setPopup(false);
     try {
-      const res = await axios.post("http://52.78.54.86:8000/vote", {
+      const res = await axios.post("http://localhost:8000/vote", {
         artwork: artwork_id,
       });
       const result = res;

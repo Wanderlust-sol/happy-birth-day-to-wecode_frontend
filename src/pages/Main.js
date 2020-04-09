@@ -49,7 +49,7 @@ class Main extends Component {
 
   async fetchData() {
     const { activeTab } = this.state;
-    const result = await axios(`http://52.78.54.86:8000/artwork/${artInfo[activeTab].url}`);
+    const result = await axios(`http://localhost:8000/artwork/${artInfo[activeTab].url}`);
 
     this.setState({
       data: result.data[artInfo[activeTab].data]
