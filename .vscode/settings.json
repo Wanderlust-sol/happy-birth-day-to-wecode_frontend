@@ -9,6 +9,10 @@
   "files.autoSave": "onFocusChange",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
+<<<<<<< HEAD
+  }
+=======
   },
   "json.schemas": []
+>>>>>>> 0da8094991d59b713b2ebe2c0413990c13e7526f
 }
