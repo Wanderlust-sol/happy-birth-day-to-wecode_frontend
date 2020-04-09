@@ -6,10 +6,17 @@ import Artlist from "../components/ArtList";
 class Main extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      activeState: props.location.pathname,
-    };
+    if (
+      (props.location.pathname === "/") |
+      (props.location.pathname === "/poem3")
+    ) {
+      this.state = {
+        activeState: "/poem3",
+      };
+    } else
+      this.state = {
+        activeState: props.location.pathname,
+      };
   }
 
   toPoem3 = () => {
