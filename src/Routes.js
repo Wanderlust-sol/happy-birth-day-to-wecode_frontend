@@ -5,6 +5,7 @@ import App from "./App";
 import Main from "./pages/Main";
 import ArtList from "components/ArtList";
 import ModalVote from "./components/Modal";
+import Contributor from "./pages/Contributor";
 import Footer from "components/Footer";
 import Result from "pages/Result";
 
@@ -13,12 +14,15 @@ class Routes extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={Main}/>
-          <Route exact path="/art" component={ArtList}/>
-          <Route exact path="/modal" component={ModalVote}/>
-          <Route exact path="/result" component={Result}/>
+          <Route exact path="/" component={App} />
+          <Route exact path="/modal" component={ModalVote} />
+          <Route exact path="/contributor" component={Contributor} />
+          <Route exact path="/" component={Main} />
+          <Route exact path="/art" component={ArtList} />
+          <Route exact path="/modal" component={ModalVote} />
+          <Route exact path="/result" component={Result} />
         </Switch>
-        <Footer/>
+        <Footer />
       </Router>
     );
   }
