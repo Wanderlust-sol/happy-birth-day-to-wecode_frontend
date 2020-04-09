@@ -2,16 +2,19 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "config";
 import styled from "styled-components";
+import ModalVote from "components/Modal";
 
-
-
-
-const ArtBox = props => {
+const ArtBox = (props) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
-  const { artist, image_urls, batch, vote, artwork_id } = props.info || { artist: "오종택", image_urls: [], batch: 6 };
+  const { artist, image_urls, batch, vote, artwork_id } = props.info || {
+    artist: "오종택",
+    image_urls: [],
+    batch: 6,
+  };
 
   const handleVote = async () => {
     // alert("투표되었습니다~! 땡큐 베리 마취");
@@ -44,20 +47,26 @@ const ArtBox = props => {
 
   return (
     <Container>
+      <ModalVote
+        image={image_urls}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+      />
       <ArtContainer>
         <Art
+          onClick={() => setIsVisible(!isVisible)}
           src={image_urls[0]}
           ref={imageRef}
           width="300"
           height="200"
-          Width={realWidth}
-          Height={realHeight}
         ></Art>
       </ArtContainer>
       {vote !== false && (
         <Content pop={popup}>
           <ContentTitle>
-            <Name>{batch}기 {artist}</Name>
+            <Name>
+              {batch}기 {artist}
+            </Name>
             <Vote onClick={() => setPopup(true)}>투표하기</Vote>
           </ContentTitle>
           <PopupContainer>
@@ -95,17 +104,19 @@ const ArtContainer = styled.div`
 `;
 
 const Art = styled.img`
-  /* width: ${props => (props.Width > props.Height ? "100%" : props.Width)};
-  height: ${props => (props.Height >= props.Width ? "100%" : props.Height)}; */
+  /* width: ${(props) => (props.Width > props.Height ? "100%" : props.Width)};
+  height: ${(props) =>
+    props.Height >= props.Width ? "100%" : props.Height}; */
   object-fit: cover;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  cursor: pointer;
 `;
 
 const Content = styled.div`
   width: 100%;
   position: absolute;
-  left: ${props => (props.pop ? "-300px" : "0px")};
+  left: ${(props) => (props.pop ? "-300px" : "0px")};
   transition: left 1s ease-in-out;
 `;
 
