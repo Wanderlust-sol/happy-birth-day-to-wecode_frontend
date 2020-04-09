@@ -14,7 +14,6 @@ class Routes extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={App} />
           <Route exact path="/modal" component={ModalVote} />
           <Route exact path="/contributor" component={Contributor} />
           <Route exact path="/" component={Main} />
