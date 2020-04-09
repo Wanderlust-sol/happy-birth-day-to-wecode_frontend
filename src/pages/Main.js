@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import ArtBox from "components/ArtBox";
 import anivimg from "../img/title@2x.png";
@@ -70,23 +71,24 @@ class Main extends Component {
         <MainAniv>
           <img src={anivimg}/>
         </MainAniv>
-        <UlWrap>
-          <MainUl>
-            <Mainli selected={activeTab === "/poem3"} onClick={() => this.toPage('/poem3')}>
-              삼 행 시
-            </Mainli>
-            <Mainli selected={activeTab === "/pic"} onClick={() => this.toPage('/pic')}>
-              그 림
-            </Mainli>
-            <Mainli selected={activeTab === "/poem"} onClick={() => this.toPage('/poem')}>
-              시
-            </Mainli>
-          </MainUl>
-        </UlWrap>
+        <MainUl>
+          <Mainli selected={activeTab === "/poem3"} onClick={() => this.toPage('/poem3')}>
+            삼 행 시
+          </Mainli>
+          <Mainli selected={activeTab === "/pic"} onClick={() => this.toPage('/pic')}>
+            그 림
+          </Mainli>
+          <Mainli selected={activeTab === "/poem"} onClick={() => this.toPage('/poem')}>
+            시
+          </Mainli>
+          <Link to="/result"><ResultButton>
+            결과 보기
+          </ResultButton></Link>
+        </MainUl>
 
-        <MainTabWrap>
+        <Wrap>
           {data.map(el => <ArtBox info={el}/>)}
-        </MainTabWrap>
+        </Wrap>
       </MainWrap>
     );
   }
@@ -95,7 +97,6 @@ class Main extends Component {
 export default Main;
 
 const MainWrap = styled.div`
-  // width: 1440px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -111,38 +112,14 @@ const MainAniv = styled.div`
   }
 `;
 
-const MainTabWrap = styled.div`
-  width: 1440px;
-  margin: 0 auto;
-`;
-
-const MainTabThreePoem = styled.div`
-  border: 1px solid black;
-  margin: 0 auto;
-  height: 1500px;
-`;
-
-const MainTabPicture = styled.div`
-  border: 1px solid black;
-  margin: 0 auto;
-  height: 1500px;
-`;
-
-const MainTabPoem = styled.div`
-  border: 1px solid black;
-  margin: 0 auto;
-  height: 1500px;
-`;
-
-const UlWrap = styled.div`
-  min-width: 300px;
-  max-width: 1440px;
-  margin: 0 auto;
-`;
-
 const MainUl = styled.ul`
+  position: relative;
+  //max-width: 800px;
+  //margin: 0 auto;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: row;
+  border-bottom: 1px solid black;
 `;
 
 const Mainli = styled.li`
@@ -160,4 +137,19 @@ const Mainli = styled.li`
     font-weight: 900;
     font-size: 21px;
     color: ${({ selected }) => selected ? 'white' : 'black'};
+`;
+
+const Wrap = styled.div`
+  text-align: center;
+`;
+
+const ResultButton = styled.div`
+   position: absolute;
+   right: 0;
+   bottom: 5px;
+   padding: 10px 20px;
+   border-radius: 5px;
+   cursor: pointer;
+   background-color: black;
+   color: white;
 `;

@@ -11,15 +11,20 @@ const ArtBox = props => {
   const { artist, image_urls, batch, bottom } = props.info || { artist: "오종택", image_urls: [], batch: 6 };
 
   const handleVote = async () => {
-    alert("투표되었습니다~! 땡큐 베리 마취");
-    setPopup(false);
-    // try {
-    //   await axios.post(`${API_URL}`, { id });
-    //   alert("투표되었습니다~! 땡큐 베리 마취");
-    //   setPopup(false)
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    // alert("투표되었습니다~! 땡큐 베리 마취");
+    // setPopup(false);
+    try {
+      const res = await axios.post("http://10.58.4.51:8000/vote", {
+        artwork: 10,
+      });
+      const result = res;
+      alert("소중한 1표 땡큐요~😘");
+      setPopup(false);
+      console.log(result);
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getImageSize = () => {
