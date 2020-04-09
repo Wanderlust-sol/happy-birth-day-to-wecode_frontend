@@ -1,11 +1,25 @@
 import React, { useRef, useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import axios from "axios";
+import { API_URL } from "config";
+import styled from "styled-components";
 
-const ArtBox = (props) => {
+const ArtBox = props => {
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
+
+  const handleVote = async () => {
+    alert("투표되었습니다~! 땡큐 베리 마취");
+    setPopup(false);
+    // try {
+    //   await axios.post(`${API_URL}`, { id });
+    //   alert("투표되었습니다~! 땡큐 베리 마취");
+    //   setPopup(false)
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
 
   const getImageSize = () => {
     const realWidth = imageRef.current.naturalWidth;
@@ -38,7 +52,7 @@ const ArtBox = (props) => {
         </ContentTitle>
         <PopupContainer>
           <Button>
-            <Yes>투표할래!</Yes>
+            <Yes onClick={handleVote}>투표할래!</Yes>
             <No onClick={() => setPopup(false)}>다른거 할래!</No>
           </Button>
         </PopupContainer>
@@ -70,9 +84,8 @@ const ArtContainer = styled.div`
 `;
 
 const Art = styled.img`
-  /* width: ${(props) => (props.Width > props.Height ? "100%" : props.Width)};
-  height: ${(props) =>
-    props.Height >= props.Width ? "100%" : props.Height}; */
+  /* width: ${props => (props.Width > props.Height ? "100%" : props.Width)};
+  height: ${props => (props.Height >= props.Width ? "100%" : props.Height)}; */
   object-fit: cover;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -81,7 +94,7 @@ const Art = styled.img`
 const Content = styled.div`
   width: 100%;
   position: absolute;
-  left: ${(props) => (props.pop ? "-300px" : "0px")};
+  left: ${props => (props.pop ? "-300px" : "0px")};
   transition: left 1s ease-in-out;
 `;
 
