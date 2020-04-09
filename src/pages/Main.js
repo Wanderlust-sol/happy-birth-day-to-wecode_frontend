@@ -9,15 +9,15 @@ import { API_URL } from 'config.js';
 const artInfo = {
   '/poem3': {
     url: 2,
-    data: '삼행시'
+    data: 'three_rows'
   },
   '/pic': {
     url: 1,
-    data: '그림'
+    data: 'picture'
   },
   '/poem': {
     url: 3,
-    data: '시'
+    data: 'poems'
   }
 };
 
@@ -50,7 +50,7 @@ class Main extends Component {
 
   async fetchData() {
     const { activeTab } = this.state;
-    const result = await axios(`${API_URL}/artwork/${artInfo[activeTab].url}`);
+    const result = await axios(`${API_URL}/vote/artwork/${artInfo[activeTab].url}`);
 
     this.setState({
       data: result.data[artInfo[activeTab].data]
