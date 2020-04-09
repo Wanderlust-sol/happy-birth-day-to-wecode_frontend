@@ -1,20 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import ArtBox from "components/ArtBox";
+import Image from "img/falsekind.png";
 
 const ArtList = () => {
   return (
     <>
       <Container>
         <List>
-          <ArtBox></ArtBox>
-          <ArtBox></ArtBox>
-          <ArtBox></ArtBox>
-          <ArtBox></ArtBox>
-          <ArtBox></ArtBox>
-          <ArtBox></ArtBox>
-          <ArtBox></ArtBox>
-          <ArtBox></ArtBox>
+          <ArtBox image={Image}></ArtBox>
+          <ArtBox image={Image}></ArtBox>
+          <ArtBox image={Image}></ArtBox>
+          <ArtBox image={Image}></ArtBox>
+          <ArtBox image={Image}></ArtBox>
+          <ArtBox image={Image}></ArtBox>
+          <ArtBox image={Image}></ArtBox>
+          <ArtBox image={Image}></ArtBox>
           {/* {x.map(item => (
             <ArtBox item={item} />
           ))} */}

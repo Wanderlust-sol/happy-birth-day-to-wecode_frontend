@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
-import Image from "img/falsekind.png";
 
 const ArtBox = (props) => {
   const [realWidth, setRealWidth] = useState(0);
@@ -23,8 +22,10 @@ const ArtBox = (props) => {
     <Container>
       <ArtContainer>
         <Art
-          src={Image}
+          src={props.image}
           ref={imageRef}
+          width="300"
+          height="200"
           Width={realWidth}
           Height={realHeight}
         ></Art>
@@ -47,6 +48,7 @@ const Container = styled.div`
   border-radius: 4px;
   background-color: #ffffff;
   display: inline-block;
+  position: relative;
 `;
 
 const ArtContainer = styled.div`
@@ -58,9 +60,12 @@ const ArtContainer = styled.div`
 `;
 
 const Art = styled.img`
-  width: ${(props) => (props.Width > props.Height ? "100%" : props.Width)};
-  height: ${(props) => (props.Height >= props.Width ? "100%" : props.Height)};
-  margin-bottom: -2px;
+  /* width: ${(props) => (props.Width > props.Height ? "100%" : props.Width)};
+  height: ${(props) =>
+    props.Height >= props.Width ? "100%" : props.Height}; */
+  object-fit: cover;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 `;
 
 const Content = styled.div`
@@ -77,7 +82,7 @@ const Name = styled.p`
   font-weight: bold;
 `;
 
-const Vote = styled.button`
+const Vote = styled.div`
   width: 92px;
   height: 28px;
   border-radius: 2px;
@@ -85,4 +90,8 @@ const Vote = styled.button`
   font-size: 13px;
   font-weight: bold;
   color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
