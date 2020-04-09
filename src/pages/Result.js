@@ -5,13 +5,25 @@ import ArtBox from "components/ArtBox";
 class Result extends Component {
 
   state = {
-    drawing: []
+    drawing: [],
+    poem: [],
+    poem3: []
   };
 
   componentDidMount() {
-    fetch('http://10.58.1.79:8000/vote/result/2').then(res => res.json()).then(res => {
+    fetch('http://10.58.1.79:8000/vote/result/1').then(res => res.json()).then(res => {
       console.log(res)
       this.setState({ drawing: res.results })
+    })
+
+    fetch('http://10.58.1.79:8000/vote/result/2').then(res => res.json()).then(res => {
+      console.log(res)
+      this.setState({ poem3: res.results })
+    })
+
+    fetch('http://10.58.1.79:8000/vote/result/3').then(res => res.json()).then(res => {
+      console.log(res)
+      this.setState({ poem: res.results })
     })
   }
 
@@ -20,8 +32,9 @@ class Result extends Component {
       <Page>
         <Section>
           <Title>삼행시 부문 순위</Title>
-          <div>
-          </div>
+
+          {this.state.poem3.map((el) => <ArtBox info={el} vote={false} /> )}
+
         </Section>
         <Section>
           <Title>그림 부문 순위</Title>
@@ -30,6 +43,9 @@ class Result extends Component {
         </Section>
         <Section>
           <Title>시 부문 순위</Title>
+
+          {this.state.poem.map((el) => <ArtBox info={el} vote={false} /> )}
+
         </Section>
       </Page>
     );

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import backimg from "../img/pattern-bg.svg";
 import anivimg from "../img/title@2x.png";
 import Artlist from "../components/ArtList";
 
@@ -37,77 +36,75 @@ class Main extends Component {
   render() {
     return (
       <MainWrap>
-        <MainBody>
-          <MainAniv>
-            <img src={anivimg} />
-          </MainAniv>
-          <UlWrap>
-            <MainUl>
-              {this.state.activeState === "/poem3" ? (
-                <Mainli>
-                  <a class="poem3Selected" onClick={this.toPoem3}>
-                    삼 행 시
-                  </a>
-                </Mainli>
-              ) : (
-                <Mainli>
-                  <a class="poem3" onClick={this.toPoem3}>
-                    삼 행 시
-                  </a>
-                </Mainli>
-              )}
-              {this.state.activeState === "/pic" ? (
-                <Mainli>
-                  <a class="picSelected" onClick={this.toPic}>
-                    그 림
-                  </a>
-                </Mainli>
-              ) : (
-                <Mainli>
-                  <a class="pic" onClick={this.toPic}>
-                    그 림
-                  </a>
-                </Mainli>
-              )}
-              {this.state.activeState === "/poem" ? (
-                <Mainli>
-                  <a class="poemSelected" onClick={this.toPoem}>
-                    시
-                  </a>
-                </Mainli>
-              ) : (
-                <Mainli>
-                  <a class="poem" onClick={this.toPoem}>
-                    시
-                  </a>
-                </Mainli>
-              )}
-            </MainUl>
-          </UlWrap>
-          {this.state.activeState === "/poem3" ? (
-            <MainTabWrap>
-              <MainTabThreePoem>
-                <Artlist></Artlist>
-              </MainTabThreePoem>
-            </MainTabWrap>
-          ) : (
-            <div></div>
-          )}
-          {this.state.activeState === "/pic" ? (
-            <MainTabWrap>
-              <MainTabPicture>그림</MainTabPicture>
-            </MainTabWrap>
-          ) : (
-            <div></div>
-          )}
-          {this.state.activeState === "/poem" ? (
-            <MainTabWrap>
-              <MainTabPoem>시</MainTabPoem>
-            </MainTabWrap>
-          ) : (
-            <div></div>
-          )}
-        </MainBody>
+        <MainAniv>
+          <img src={anivimg}/>
+        </MainAniv>
+        <UlWrap>
+          <MainUl>
+            {this.state.activeState === "/poem3" ? (
+              <Mainli>
+                <a class="poem3Selected" onClick={this.toPoem3}>
+                  삼 행 시
+                </a>
+              </Mainli>
+            ) : (
+              <Mainli>
+                <a class="poem3" onClick={this.toPoem3}>
+                  삼 행 시
+                </a>
+              </Mainli>
+            )}
+            {this.state.activeState === "/pic" ? (
+              <Mainli>
+                <a class="picSelected" onClick={this.toPic}>
+                  그 림
+                </a>
+              </Mainli>
+            ) : (
+              <Mainli>
+                <a class="pic" onClick={this.toPic}>
+                  그 림
+                </a>
+              </Mainli>
+            )}
+            {this.state.activeState === "/poem" ? (
+              <Mainli>
+                <a class="poemSelected" onClick={this.toPoem}>
+                  시
+                </a>
+              </Mainli>
+            ) : (
+              <Mainli>
+                <a class="poem" onClick={this.toPoem}>
+                  시
+                </a>
+              </Mainli>
+            )}
+          </MainUl>
+        </UlWrap>
+        {this.state.activeState === "/poem3" ? (
+          <MainTabWrap>
+            <MainTabThreePoem>
+              <Artlist></Artlist>
+            </MainTabThreePoem>
+          </MainTabWrap>
+        ) : (
+          <div></div>
+        )}
+        {this.state.activeState === "/pic" ? (
+          <MainTabWrap>
+            <MainTabPicture>그림</MainTabPicture>
+          </MainTabWrap>
+        ) : (
+          <div></div>
+        )}
+        {this.state.activeState === "/poem" ? (
+          <MainTabWrap>
+            <MainTabPoem>시</MainTabPoem>
+          </MainTabWrap>
+        ) : (
+          <div></div>
+        )}
       </MainWrap>
     );
   }
@@ -139,12 +136,6 @@ const Header = styled.div`
 `;
 const MainTitleImg = styled.img`
   cursor: pointer;
-`;
-
-const MainBody = styled.div`
-  width: 100%;
-  height: 2000px;
-  background-image: url(${backimg});
 `;
 
 const MainAniv = styled.div`
