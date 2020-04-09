@@ -8,8 +8,8 @@ const ArtList = () => {
     <>
       <Container>
         <List>
-          <ArtBox image={Image}></ArtBox>
-          <ArtBox image={Image}></ArtBox>
+          <ArtBox image="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/3barum.jpg"></ArtBox>
+          <ArtBox image="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/6thJongTaek.png"></ArtBox>
           <ArtBox image={Image}></ArtBox>
           <ArtBox image={Image}></ArtBox>
           <ArtBox image={Image}></ArtBox>
