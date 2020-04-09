@@ -1,7 +1,7 @@
 {
   "editor.formatOnSave": true,
   "[javascript]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
   },
   "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true,
@@ -9,5 +9,6 @@
   "files.autoSave": "onFocusChange",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "json.schemas": []
 }
