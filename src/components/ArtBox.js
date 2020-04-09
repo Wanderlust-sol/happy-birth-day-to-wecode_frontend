@@ -8,14 +8,14 @@ const ArtBox = props => {
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
-  const { artist, image_urls, batch, bottom } = props.info || { artist: "오종택", image_urls: [], batch: 6 };
+  const { artist, image_urls, batch, vote, artwork_id } = props.info || { artist: "오종택", image_urls: [], batch: 6 };
 
   const handleVote = async () => {
     // alert("투표되었습니다~! 땡큐 베리 마취");
     // setPopup(false);
     try {
-      const res = await axios.post("http://10.58.4.51:8000/vote", {
-        artwork: 10,
+      const res = await axios.post("http://52.78.54.86:8000/vote", {
+        artwork: artwork_id,
       });
       const result = res;
       alert("소중한 1표 땡큐요~😘");
@@ -51,7 +51,7 @@ const ArtBox = props => {
           Height={realHeight}
         ></Art>
       </ArtContainer>
-      {bottom !== false && (
+      {vote !== false && (
         <Content pop={popup}>
           <ContentTitle>
             <Name>{batch}기 {artist}</Name>
