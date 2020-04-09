@@ -26,7 +26,7 @@ const ModalVote = ({ isVisible, setIsVisible, image }) => {
   const sliderRef = useRef();
 
   useEffect(() => {
-    getImageSize();
+    image && getImageSize();
     setImageLength(image.length);
   }, [image]);
 
@@ -60,8 +60,13 @@ const ModalVote = ({ isVisible, setIsVisible, image }) => {
     image &&
     image.map((param, idx) => {
       return (
-        <SliderLi Width={realWidth} Height={realHeight} key={idx}>
-          <img src={param} ref={imageRef} />
+        <SliderLi
+          Width={realWidth}
+          Height={realHeight}
+          key={idx}
+          style={{ display: "flex" }}
+        >
+          <img src={param} ref={imageRef} alt="img" />
         </SliderLi>
       );
     });
@@ -179,7 +184,18 @@ const ModalArts = styled.ul`
   .slick-slide {
     display: flex;
     justify-content: center;
+    /* align-items: center; */
+    /* position: relative; */
     background-color: black;
+    img {
+      /* position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); */
+      /* text-align: center; */
+
+      margin: auto 0;
+    }
   }
 `;
 
@@ -222,12 +238,21 @@ const SliderLi = styled.div`
   width: 900px;
   height: 563px;
 
-  display: flex;
+  display: flex !important;
   justify-content: center;
+  align-items: center;
+
+  /* div {
+    display: flex;
+    align-items: center;
+  } */
 
   img {
-    width: ${(props) => (props.Width > props.Height ? "100%" : props.Width)};
-    height: ${(props) => (props.Height >= props.Width ? "100%" : props.Height)};
+    /* align-self: center; */
+    width: ${(props) =>
+      props.Width > props.Height ? "100%" : props.Width + "px"};
+    height: ${(props) =>
+      props.Height >= props.Width ? "100%" : props.Height + "px"};
   }
 `;
 
