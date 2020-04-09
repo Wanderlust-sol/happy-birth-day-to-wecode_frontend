@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import ArtBox from "components/ArtBox";
+import { API_URL } from 'config.js';
 
 class Result extends Component {
 
@@ -11,19 +12,19 @@ class Result extends Component {
   };
 
   componentDidMount() {
-    fetch('http://10.58.1.79:8000/vote/result/1').then(res => res.json()).then(res => {
+    fetch(`${API_URL}/result/1`).then(res => res.json()).then(res => {
       console.log(res)
-      this.setState({ drawing: res.results })
+      this.setState({ drawing: res.results.slice(0,3) })
     })
 
-    fetch('http://10.58.1.79:8000/vote/result/2').then(res => res.json()).then(res => {
+    fetch(`${API_URL}/result/2`).then(res => res.json()).then(res => {
       console.log(res)
-      this.setState({ poem3: res.results })
+      this.setState({ poem3: res.results.slice(0,3) })
     })
 
-    fetch('http://10.58.1.79:8000/vote/result/3').then(res => res.json()).then(res => {
+    fetch(`${API_URL}/result/3`).then(res => res.json()).then(res => {
       console.log(res)
-      this.setState({ poem: res.results })
+      this.setState({ poem: res.results.slice(0,3) })
     })
   }
 
@@ -31,18 +32,18 @@ class Result extends Component {
     return (
       <Page>
         <Section>
-          <Title>삼행시 부문 순위</Title>
+          <Title>삼행시 부문 TOP 3</Title>
 
           {this.state.poem3.map((el) => <ArtBox info={el} vote={false} /> )}
 
         </Section>
         <Section>
-          <Title>그림 부문 순위</Title>
+          <Title>그림 부문 TOP 3</Title>
 
           {this.state.drawing.map((el) => <ArtBox info={el} vote={false} /> )}
         </Section>
         <Section>
-          <Title>시 부문 순위</Title>
+          <Title>시 부문 TOP 3</Title>
 
           {this.state.poem.map((el) => <ArtBox info={el} vote={false} /> )}
 
@@ -55,6 +56,7 @@ class Result extends Component {
 export default Result;
 
 const Page = styled.div`
+  padding-top: 100px;
 `;
 
 const Section = styled.section`

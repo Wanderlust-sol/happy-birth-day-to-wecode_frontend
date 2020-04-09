@@ -4,13 +4,13 @@ import { API_URL } from "config";
 import styled from "styled-components";
 import ModalVote from "components/Modal";
 
-const ArtBox = ({ image, info }) => {
+const ArtBox = (props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
-  const { artist, image_urls, batch, bottom } = info || {
+  const { artist, image_urls, batch, vote, artwork_id } = props.info || {
     artist: "오종택",
     image_urls: [],
     batch: 6,
@@ -20,8 +20,8 @@ const ArtBox = ({ image, info }) => {
     // alert("투표되었습니다~! 땡큐 베리 마취");
     // setPopup(false);
     try {
-      const res = await axios.post("http://10.58.4.51:8000/artwork/2", {
-        artwork: 1,
+      const res = await axios.post(`${API_URL}/vote`, {
+        artwork: artwork_id,
       });
       const result = res;
       alert("소중한 1표 땡큐요~😘");
@@ -61,7 +61,7 @@ const ArtBox = ({ image, info }) => {
           height="200"
         ></Art>
       </ArtContainer>
-      {bottom !== false && (
+      {vote !== false && (
         <Content pop={popup}>
           <ContentTitle>
             <Name>
