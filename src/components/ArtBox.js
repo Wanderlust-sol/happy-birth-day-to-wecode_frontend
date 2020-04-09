@@ -8,7 +8,7 @@ const ArtBox = props => {
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
-  const { artist, image_urls, batch, bottom } = props.info;
+  const { artist, image_urls, batch, bottom } = props.info || { artist: "오종택", image_urls: [], batch: 6 };
 
   const handleVote = async () => {
     alert("투표되었습니다~! 땡큐 베리 마취");
