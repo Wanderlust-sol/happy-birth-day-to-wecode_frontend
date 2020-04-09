@@ -1,11 +1,23 @@
 import React, { useRef, useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import axios from "axios";
+import { API_URL } from "config";
+import styled from "styled-components";
 
 const ArtBox = (props) => {
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
+
+  const handleVote = async () => {
+    alert("투표되었습니다~! 땡큐 베리 마취");
+    // try {
+    //   await axios.post(`${API_URL}`, { id });
+    //   alert("투표되었습니다~! 땡큐 베리 마취");
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
 
   const getImageSize = () => {
     const realWidth = imageRef.current.naturalWidth;
@@ -38,7 +50,7 @@ const ArtBox = (props) => {
         </ContentTitle>
         <PopupContainer>
           <Button>
-            <Yes>투표할래!</Yes>
+            <Yes onClick={handleVote}>투표할래!</Yes>
             <No onClick={() => setPopup(false)}>다른거 할래!</No>
           </Button>
         </PopupContainer>
