@@ -14,6 +14,7 @@ const ArtList = () => {
 export default ArtList;
 
 const Footer = styled.footer`
+  margin-top: 100px;
   padding: 30px 50px;
   background-color: black;
   text-align: center;
