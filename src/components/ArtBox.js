@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const ArtBox = (props) => {
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
+  const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
 
   const getImageSize = () => {
@@ -30,9 +31,17 @@ const ArtBox = (props) => {
           Height={realHeight}
         ></Art>
       </ArtContainer>
-      <Content>
-        <Name>6기 오종택</Name>
-        <Vote>투표하기</Vote>
+      <Content pop={popup}>
+        <ContentTitle>
+          <Name>6기 오종택</Name>
+          <Vote onClick={() => setPopup(true)}>투표하기</Vote>
+        </ContentTitle>
+        <PopupContainer>
+          <Button>
+            <Yes>투표할래!</Yes>
+            <No onClick={() => setPopup(false)}>다른거 할래!</No>
+          </Button>
+        </PopupContainer>
       </Content>
     </Container>
   );
@@ -49,6 +58,7 @@ const Container = styled.div`
   background-color: #ffffff;
   display: inline-block;
   position: relative;
+  overflow: hidden;
 `;
 
 const ArtContainer = styled.div`
@@ -69,6 +79,13 @@ const Art = styled.img`
 `;
 
 const Content = styled.div`
+  width: 100%;
+  position: absolute;
+  left: ${(props) => (props.pop ? "-300px" : "0px")};
+  transition: left 1s ease-in-out;
+`;
+
+const ContentTitle = styled.div`
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -94,4 +111,45 @@ const Vote = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+const Button = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: bold;
+`;
+
+const Yes = styled.div`
+  width: 92px;
+  height: 30px;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #27ae60;
+  color: white;
+  cursor: pointer;
+`;
+
+const No = styled.div`
+  width: 92px;
+  height: 30px;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c0392b;
+  color: white;
+  cursor: pointer;
+`;
+
+const PopupContainer = styled.div`
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  left: 300px;
 `;
