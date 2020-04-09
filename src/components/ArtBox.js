@@ -3,27 +3,20 @@ import styled from "styled-components";
 import ModalVote from "components/Modal";
 
 const ArtBox = ({ image }) => {
-  const [realWidth, setRealWidth] = useState(0);
-  const [realHeight, setRealHeight] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const imageRef = useRef(null);
-
-  const getImageSize = () => {
-    const realWidth = imageRef.current.naturalWidth;
-    const realHeight = imageRef.current.naturalHeight;
-    setRealWidth(realWidth);
-    setRealHeight(realHeight);
-    console.log(realWidth, realHeight);
-  };
-
-  useEffect(() => {
-    getImageSize();
-  }, []);
 
   return (
     <Container>
       <ModalVote
-        image={image}
+        image={[
+          "https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/3barum.jpg",
+          "https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/3thbarum2.jpg",
+          "https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/3thbarum3.jpg",
+          "https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/3thbarum4.jpg",
+          "https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/3thbarum5.jpg",
+          "https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/3thbarum6.jpg",
+          "https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/birthday/3thbarum7.jpg",
+        ]}
         isVisible={isVisible}
         setIsVisible={setIsVisible}
       />
@@ -31,11 +24,8 @@ const ArtBox = ({ image }) => {
         <Art
           onClick={() => setIsVisible(!isVisible)}
           src={image}
-          ref={imageRef}
           width="300"
           height="200"
-          Width={realWidth}
-          Height={realHeight}
         ></Art>
       </ArtContainer>
       <Content>

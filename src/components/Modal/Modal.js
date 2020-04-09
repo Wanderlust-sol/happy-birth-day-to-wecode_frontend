@@ -1,25 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import xButton from "img/x-mark-48.png";
 import arrowRight from "img/arrow-right.png";
 
+const settings = {
+  infinite: false,
+  speed: 1,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  swipe: false,
+  adaptiveHeight: true,
+};
+
 const ModalVote = ({ isVisible, setIsVisible, image }) => {
-  // const [isVisible, setIsVisible] = useState(false);
   const [isEntered, setIsEntered] = useState(false);
   const [isButtonEntered, setIsButtonEntered] = useState(false);
+  const [realWidth, setRealWidth] = useState(0);
+  const [realHeight, setRealHeight] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [imageLength, setImageLength] = useState(0);
+  const imageRef = useRef();
+  const sliderRef = useRef();
+
+  useEffect(() => {
+    getImageSize();
+    setImageLength(image.length);
+  }, [image]);
 
   const modalShow = () => {
-    console.log(isEntered);
-    (!isEntered || isButtonEntered) && setIsVisible(!isVisible);
+    if (!isEntered || isButtonEntered) {
+      setIsVisible(!isVisible);
+      setCurrentSlide(0);
+      sliderRef.current.slickGoTo(0);
+    }
   };
 
-  // const imageMapArr = image.map((param, idx) => {
-  //   return (
-  //     <li key={idx}>
-  //       <image src={param} />
-  //     </li>
-  //   );
-  // });
+  const getImageSize = () => {
+    const realWidth = imageRef.current.naturalWidth;
+    const realHeight = imageRef.current.naturalHeight;
+    setRealWidth(realWidth);
+    setRealHeight(realHeight);
+  };
+
+  const moveSlide = (e) => {
+    const btn = e.target.className.split(" ")[1];
+    if (btn === "btn-left") {
+      setCurrentSlide(currentSlide - 1);
+      sliderRef.current.slickPrev();
+    } else if (btn === "btn-right") {
+      setCurrentSlide(currentSlide + 1);
+      sliderRef.current.slickNext();
+    }
+  };
+
+  const imageMapArr =
+    image &&
+    image.map((param, idx) => {
+      return (
+        <SliderLi Width={realWidth} Height={realHeight} key={idx}>
+          <img src={param} ref={imageRef} />
+        </SliderLi>
+      );
+    });
 
   return (
     <>
@@ -34,7 +79,24 @@ const ModalVote = ({ isVisible, setIsVisible, image }) => {
             onMouseEnter={() => setIsButtonEntered(!isButtonEntered)}
             onMouseLeave={() => setIsButtonEntered(!isButtonEntered)}
           />
-          <ModalArts>{/* <ul>{image && imageMapArr}</ul> */}</ModalArts>
+          <ModalArtsWrapper
+            currentSlide={currentSlide}
+            imageLength={imageLength}
+          >
+            <div
+              className="btn btn-left btn-scroll btn-scroll-left"
+              onClick={(event) => moveSlide(event)}
+            />
+            <div
+              className="btn btn-right btn-scroll btn-scroll-right"
+              onClick={(event) => moveSlide(event)}
+            />
+            <ModalArts>
+              <Slider {...settings} ref={sliderRef}>
+                {imageMapArr}
+              </Slider>
+            </ModalArts>
+          </ModalArtsWrapper>
           <ModalBottom>
             <BottomLeft>
               <ArrowRight />
@@ -65,7 +127,7 @@ const ModalContainer = styled.div`
   align-items: center;
 
   position: fixed;
-  top: 64px;
+  top: 0;
   left: 0;
 `;
 
@@ -74,11 +136,10 @@ const Background = styled.div`
   opacity: 0.8;
   background: #000000;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   position: absolute;
-  left: 0;
 `;
 
 const ModalMain = styled.div`
@@ -108,12 +169,66 @@ const ModalArts = styled.ul`
   height: 563px;
 
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  flex-direction: column;
 
   overflow: hidden;
 
-  border-radius: 4px;
-  border: solid 2.3px #000000;
+  border-bottom: solid 2.3px #000000;
+
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+  }
+`;
+
+const ModalArtsWrapper = styled.div`
+  overflow: hidden;
+  position: relative;
+
+  .btn {
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    border-radius: 50%;
+
+    &-left {
+      left: 30px;
+      display: ${(props) => {
+        return props.currentSlide === 0 ? "none" : "inline-block";
+      }};
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_prev_default.png?v=1")
+        no-repeat 50% 50%;
+    }
+
+    &-right {
+      right: 30px;
+      display: ${(props) => {
+        return props.currentSlide === props.imageLength - 1
+          ? "none"
+          : "inline-block";
+      }};
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png?v=1")
+        no-repeat 50% 50%;
+    }
+  }
+`;
+
+const SliderLi = styled.div`
+  background: black;
+  width: 900px;
+  height: 563px;
+
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: ${(props) => (props.Width > props.Height ? "100%" : props.Width)};
+    height: ${(props) => (props.Height >= props.Width ? "100%" : props.Height)};
+  }
 `;
 
 const ModalBottom = styled.div`
@@ -136,8 +251,8 @@ const BottomLeft = styled.div`
 `;
 
 const ArrowRight = styled.div`
-  width: 10px;
-  height: 13px;
+  width: 17px;
+  height: 23px;
   background: transparent url(${arrowRight}) no-repeat center center;
   background-size: cover;
 `;
@@ -157,6 +272,7 @@ const CreatorName = styled.div`
     font-size: 15px;
     font-weight: 900;
     color: #ffffff;
+    text-align: center;
   }
 `;
 
