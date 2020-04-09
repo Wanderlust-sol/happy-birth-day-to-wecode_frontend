@@ -2,7 +2,19 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import ArtBox from "components/ArtBox";
 
-class Main extends Component {
+class Result extends Component {
+
+  state = {
+    drawing: []
+  };
+
+  componentDidMount() {
+    fetch('http://10.58.1.79:8000/vote/result/2').then(res => res.json()).then(res => {
+      console.log(res)
+      this.setState({ drawing: res.results })
+    })
+  }
+
   render() {
     return (
       <Page>
@@ -13,6 +25,8 @@ class Main extends Component {
         </Section>
         <Section>
           <Title>그림 부문 순위</Title>
+
+          {this.state.drawing.map((el) => <ArtBox info={el} vote={false} /> )}
         </Section>
         <Section>
           <Title>시 부문 순위</Title>
@@ -22,7 +36,7 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default Result;
 
 const Page = styled.div`
 `;

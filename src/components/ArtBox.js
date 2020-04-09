@@ -6,6 +6,7 @@ const ArtBox = (props) => {
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
+  const { artist, image_urls, batch } = props.info;
 
   const getImageSize = () => {
     const realWidth = imageRef.current.naturalWidth;
@@ -23,7 +24,7 @@ const ArtBox = (props) => {
     <Container>
       <ArtContainer>
         <Art
-          src={props.image}
+          src={image_urls[0]}
           ref={imageRef}
           width="300"
           height="200"
@@ -33,7 +34,7 @@ const ArtBox = (props) => {
       </ArtContainer>
       <Content pop={popup}>
         <ContentTitle>
-          <Name>6기 오종택</Name>
+          <Name>{batch}기 {artist}</Name>
           <Vote onClick={() => setPopup(true)}>투표하기</Vote>
         </ContentTitle>
         <PopupContainer>
