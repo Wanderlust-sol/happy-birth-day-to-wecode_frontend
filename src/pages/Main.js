@@ -182,8 +182,8 @@ const MainUlMobile = styled.div`
 `;
 
 const DropDownWrapper = styled.div`
-  width: 190px;
-  height: 50px;
+  /* width: 190px;
+  height: 36px;
   border: solid 1px #000000;
   border-bottom: none;
   background-color: black;
@@ -192,23 +192,30 @@ const DropDownWrapper = styled.div`
   cursor: pointer;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  margin-left: 20px;
+  margin-left: 20px; */
+
+  display: flex;
+  width: 130px;
+  height: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  margin-left: 15px;
+  margin-bottom: 10px;
 `;
 
 const DropDownLeft = styled.div`
-  width: 140px;
-  height: 50px;
+  width: 110px;
   text-align: center;
-  font-weight: 900;
-  font-size: 21px;
+  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const DropDownRight = styled.div`
-  width: 50px;
-  height: 50px;
   background-color: black;
   position: relative;
 `;
@@ -222,10 +229,10 @@ const ArrowImg = styled.img`
 
 const DropDownMenu = styled.ul`
   position: absolute;
-  top: 53px;
+  top: 40px;
   display: ${(props) => (props.show ? "block" : "none")};
   z-index: 5;
-  margin-left: 20px;
+  margin-left: 15px;
 `;
 
 const MainUl = styled.ul`
@@ -271,13 +278,14 @@ const DropDownLi = styled.li`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 190px;
-  height: 50px;
+  width: 170px;
+  height: 40px;
   text-align: center;
   color: rgba(0, 0, 0, 0.4);
   background-color: #dddbd8;
   font-weight: 900;
-  font-size: 21px;
+  font-size: 17px;
+  border-bottom: 1px solid lightgray;
 
   &:hover {
     color: white;
