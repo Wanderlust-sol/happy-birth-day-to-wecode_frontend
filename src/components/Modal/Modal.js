@@ -17,7 +17,7 @@ const settings = {
   centerMode: true,
 };
 
-const ModalVote = ({ isVisible, setIsVisible, image, vote }) => {
+const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
   const [isEntered, setIsEntered] = useState(false);
   const [isButtonEntered, setIsButtonEntered] = useState(false);
   const [realWidth, setRealWidth] = useState(0);
@@ -26,6 +26,7 @@ const ModalVote = ({ isVisible, setIsVisible, image, vote }) => {
   const [imageLength, setImageLength] = useState(0);
   const imageRef = useRef();
   const sliderRef = useRef();
+  const { image_urls: image, artist, batch } = info;
 
   useEffect(() => {
     image && getImageSize();
@@ -110,7 +111,7 @@ const ModalVote = ({ isVisible, setIsVisible, image, vote }) => {
             <BottomLeft>
               <ArrowRight />
               <CreatorName>
-                <span>6기 오종택</span>
+                <span>{batch}기 {artist}</span>
               </CreatorName>
             </BottomLeft>
             {vote !== false && (
@@ -133,7 +134,7 @@ const ModalContainer = styled.div`
   width: 100vw;
   height: 100vh;
 
-  display: ${(props) => (props.isVisible ? "flex" : "none")};
+  display: ${(props) => (props.isVisible ? "block" : "none")};
   justify-content: center;
   align-items: center;
 
@@ -155,8 +156,8 @@ const Background = styled.div`
 
 const ModalMain = styled.div`
   z-index: 2;
-
-  margin: 0 auto;
+  
+  margin: 100px auto 0;
   position: relative;
 
   border-radius: 4px;
@@ -177,7 +178,8 @@ const CloseButton = styled.div`
 `;
 
 const ModalArts = styled.ul`
-  width: 898px;
+  max-width: 898px;
+   width: 100%;
   height: 562px;
 
   display: flex;
@@ -193,12 +195,12 @@ const ModalArts = styled.ul`
     justify-content: center;
     /* align-items: center; */
     /* position: relative; */
-    background-color: black;
+    //background-color: black;
     img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      min-width: 800px;
+      //min-width: 800px;
 
       /* position: absolute;
       top: 50%;
@@ -246,8 +248,9 @@ const ModalArtsWrapper = styled.div`
 `;
 
 const SliderLi = styled.div`
-  background: black;
-  width: 898px;
+  //background: black;
+  max-width: 898px;
+  width: 100%;
   height: 562px;
 
   display: flex !important;
