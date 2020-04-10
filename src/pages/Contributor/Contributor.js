@@ -14,6 +14,8 @@ const kwon = "https://github.com/Wanderlust-sol";
 const oh = "https://github.com/saengmotmi";
 const yoo = "https://github.com/k904808";
 const leeso = "https://soheon-lee.github.io/";
+const son = "https://github.com/jamessoun93";
+const doori = "https://github.com/gollumnima";
 
 export class Contributor extends Component {
   render() {
@@ -79,6 +81,16 @@ export class Contributor extends Component {
                 6기 유경희
               </a>
             </span>
+            <span className="nameTag son">
+              <a href={son} rel="noopener noreferrer" target="_blank">
+                멘토 손승현
+              </a>
+            </span>
+            <span className="nameTag doori">
+              <a href={doori} rel="noopener noreferrer" target="_blank">
+                멘토 김두리
+              </a>
+            </span>
           </ContributorImg>
           <NameList>
             <div>Wecoders</div>
@@ -93,8 +105,18 @@ export class Contributor extends Component {
               </a>
             </li>
             <li>
+              <a href={leeso} rel="noopener noreferrer" target="_blank">
+                멘토 김두리
+              </a>
+            </li>
+            <li>
               <a href={yang} rel="noopener noreferrer" target="_blank">
                 멘토 양준식
+              </a>
+            </li>
+            <li>
+              <a href={leeso} rel="noopener noreferrer" target="_blank">
+                멘토 손승현
               </a>
             </li>
             <li>
@@ -294,6 +316,16 @@ const ContributorImg = styled.div`
     position: absolute;
     top: 220px;
     left: 660px;
+  }
+  .son {
+    position: absolute;
+    top: 280px;
+    left: 40px;
+  }
+  .doori {
+    position: absolute;
+    top: 250px;
+    left: 100px;
   }
 `;
 
