@@ -2,29 +2,29 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "config";
 import styled from "styled-components";
-
-
-
+import medal from "img/medal.png";
 
 const ArtBox = props => {
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
-  const { artist, image_urls, batch, vote, artwork_id } = props.info || { artist: "오종택", image_urls: [], batch: 6 };
+  const { vote, info, top } = props;
+  const { artist, image_urls, batch, artwork_id } = info || { artist: "오종택", image_urls: [], batch: 6 };
 
-  const handleVote = async () => {
+  const handleVote = async() => {
     // alert("투표되었습니다~! 땡큐 베리 마취");
     // setPopup(false);
     try {
+      const code = localStorage.getItem('user') || '';
+
       const res = await axios.post(`${API_URL}/vote`, {
         artwork: artwork_id,
       });
-      const result = res;
+
+      localStorage.setItem('user', res.data.code);
       alert("소중한 1표 땡큐요~😘");
       setPopup(false);
-      console.log(result);
-      return result;
     } catch (err) {
       console.log(err);
     }
@@ -45,28 +45,31 @@ const ArtBox = props => {
   return (
     <Container>
       <ArtContainer>
+        {top && <Medal><span>{top}</span></Medal>}
         <Art
           src={image_urls[0]}
           ref={imageRef}
-          width="300"
-          height="200"
-          Width={realWidth}
-          Height={realHeight}
+          // width="300"
+          // height="200"
+          // Width={realWidth}
+          // Height={realHeight}
         ></Art>
       </ArtContainer>
       {vote !== false && (
-        <Content pop={popup}>
-          <ContentTitle>
-            <Name>{batch}기 {artist}</Name>
-            <Vote onClick={() => setPopup(true)}>투표하기</Vote>
-          </ContentTitle>
-          <PopupContainer>
-            <Button>
-              <Yes onClick={handleVote}>투표할래!</Yes>
-              <No onClick={() => setPopup(false)}>다른거 할래!</No>
-            </Button>
-          </PopupContainer>
-        </Content>
+        <Hidden>
+          <Content pop={popup}>
+            <ContentTitle>
+              <Name>{batch}기 {artist}</Name>
+              <Vote onClick={() => setPopup(true)}>투표하기</Vote>
+            </ContentTitle>
+            <PopupContainer>
+              <Button>
+                <Yes onClick={handleVote}>투표할래!</Yes>
+                <No onClick={() => setPopup(false)}>다른거 할래!</No>
+              </Button>
+            </PopupContainer>
+          </Content>
+        </Hidden>
       )}
     </Container>
   );
@@ -75,28 +78,55 @@ const ArtBox = props => {
 export default ArtBox;
 
 const Container = styled.div`
-  width: 300px;
-  height: 250px;
+  width: 30%;
+  min-width: 300px;
   margin: 15px;
   border: solid 1px #47474b;
   border-radius: 4px;
   background-color: #ffffff;
   display: inline-block;
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
+`;
+
+const Medal = styled.div`
+  position: absolute;
+  background: url(${medal}) no-repeat;
+  width: 50px;
+  height: 50px;
+  background-size: 100%;
+  text-align: center;
+  top: -10px;
+  left: -20px;
+  padding-top: 8px;
+  
+  span {
+border-radius: 50%;
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 4px;
+    left: 12px;
+    line-height: 29px;
+    background-color: #f4ea2b;
+    color: #ff7700;
+  }
 `;
 
 const ArtContainer = styled.div`
-  width: 300px;
-  height: 200px;
+  position: relative;
+  //width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
+  left: 0;
+  top: 0;
 `;
 
 const Art = styled.img`
-  /* width: ${props => (props.Width > props.Height ? "100%" : props.Width)};
-  height: ${props => (props.Height >= props.Width ? "100%" : props.Height)}; */
+  width: 100%;
+  height: 200px;
   object-fit: cover;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -104,9 +134,9 @@ const Art = styled.img`
 
 const Content = styled.div`
   width: 100%;
-  position: absolute;
-  left: ${props => (props.pop ? "-300px" : "0px")};
-  transition: left 1s ease-in-out;
+  transform: translateX(${props => (props.pop ? "-100%" : "0px")});
+  transition: transform 0.5s ease-in-out;
+  //overflow: hidden;
 `;
 
 const ContentTitle = styled.div`
@@ -116,6 +146,12 @@ const ContentTitle = styled.div`
   align-items: center;
   padding-left: 20px;
   padding-right: 10px;
+  background-color: #101820;
+  color: white;
+`;
+
+const Hidden = styled.div`
+  overflow: hidden;
 `;
 
 const Name = styled.p`
@@ -153,7 +189,7 @@ const Yes = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #27ae60;
+ background-color: #1200ff;
   color: white;
   cursor: pointer;
 `;
@@ -165,15 +201,16 @@ const No = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #c0392b;
-  color: white;
   cursor: pointer;
+  border: 1px solid black;
+    color: black;
 `;
 
 const PopupContainer = styled.div`
   width: 100%;
   height: 50px;
   position: absolute;
-  bottom: 0;
-  left: 300px;
+  left: 100%;
+  top: 0;
+  //left: 300px;
 `;

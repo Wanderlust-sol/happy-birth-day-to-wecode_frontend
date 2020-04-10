@@ -50,7 +50,7 @@ class Main extends Component {
 
   async fetchData() {
     const { activeTab } = this.state;
-    const result = await axios(`${API_URL}/vote/artwork/${artInfo[activeTab].url}`);
+    const result = await axios(`${API_URL}/artwork/${artInfo[activeTab].url}`);
 
     this.setState({
       data: result.data[artInfo[activeTab].data]
@@ -115,29 +115,28 @@ const MainAniv = styled.div`
 
 const MainUl = styled.ul`
   position: relative;
-  //max-width: 800px;
-  //margin: 0 auto;
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid black;
+  padding-left: calc(10% - 90px);
 `;
 
 const Mainli = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
   cursor: pointer;
   width: 250px;
   height: 50px;
   text-align: center;
-  background-color:  ${({ selected }) => selected ? 'black' : ''};
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-   
-    font-weight: 900;
-    font-size: 21px;
-    color: ${({ selected }) => selected ? 'white' : 'black'};
+  color:  ${({ selected }) => selected ? 'white' : 'rgba(0,0,0,0.4)'};
+  background-color:  ${({ selected }) => selected ? 'black' : 'rgba(0,0,0,0.1)'};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-weight: 900;
+  font-size: 21px;
 `;
 
 const Wrap = styled.div`
@@ -146,8 +145,8 @@ const Wrap = styled.div`
 
 const ResultButton = styled.div`
    position: absolute;
-   right: 0;
-   bottom: 5px;
+   right: calc(10% - 90px);
+   bottom: 10px;
    padding: 10px 20px;
    border-radius: 5px;
    cursor: pointer;

@@ -14,17 +14,17 @@ class Result extends Component {
   componentDidMount() {
     fetch(`${API_URL}/result/1`).then(res => res.json()).then(res => {
       console.log(res)
-      this.setState({ drawing: res.results.slice(0,3) })
+      this.setState({ drawing: res.results.slice(0, 3) })
     })
 
     fetch(`${API_URL}/result/2`).then(res => res.json()).then(res => {
       console.log(res)
-      this.setState({ poem3: res.results.slice(0,3) })
+      this.setState({ poem3: res.results.slice(0, 3) })
     })
 
     fetch(`${API_URL}/result/3`).then(res => res.json()).then(res => {
       console.log(res)
-      this.setState({ poem: res.results.slice(0,3) })
+      this.setState({ poem: res.results.slice(0, 3) })
     })
   }
 
@@ -34,19 +34,21 @@ class Result extends Component {
         <Section>
           <Title>삼행시 부문 TOP 3</Title>
 
-          {this.state.poem3.map((el) => <ArtBox info={el} vote={false} /> )}
-
+          <Center>
+            {this.state.poem3.map((el, idx) => <ArtBox info={el} vote={false} top={idx + 1}/>)}
+          </Center>
         </Section>
         <Section>
           <Title>그림 부문 TOP 3</Title>
-
-          {this.state.drawing.map((el) => <ArtBox info={el} vote={false} /> )}
+          <Center>
+            {this.state.drawing.map((el, idx) => <ArtBox info={el} vote={false} top={idx + 1}/>)}
+          </Center>
         </Section>
         <Section>
           <Title>시 부문 TOP 3</Title>
-
-          {this.state.poem.map((el) => <ArtBox info={el} vote={false} /> )}
-
+          <Center>
+            {this.state.poem.map((el, idx) => <ArtBox info={el} vote={false} top={idx + 1}/>)}
+          </Center>
         </Section>
       </Page>
     );
@@ -68,4 +70,8 @@ const Title = styled.p`
     border-bottom: 1px solid black;
     font-size: 21px;
     font-weight: bold;
+`;
+
+const Center = styled.div`
+  text-align: center;
 `;
