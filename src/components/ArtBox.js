@@ -19,8 +19,6 @@ const ArtBox = (props) => {
   };
 
   const handleVote = async () => {
-    // alert("투표되었습니다~! 땡큐 베리 마취");
-    // setPopup(false);
     try {
       const code = localStorage.getItem("user") || "";
 
@@ -35,12 +33,10 @@ const ArtBox = (props) => {
           },
         }
       );
-      console.log(res, res.status);
       localStorage.setItem("user", res.data.code);
       alert("소중한 1표 땡큐요~😘");
       setPopup(false);
     } catch (err) {
-      console.log(err);
       if (err.response.status === 409) {
         alert("이미 투표하신 작품입니다.🙊");
       } else if (err.response.status === 400) {
@@ -60,11 +56,15 @@ const ArtBox = (props) => {
   };
 
   useEffect(() => {
-    // getImageSize();
-  }, []);
+    if (isVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isVisible]);
 
   return (
-    <Container>
+    <Container isVisible={isVisible}>
       <ModalVote
         vote={vote}
         image={image_urls}
@@ -116,7 +116,6 @@ const Container = styled.div`
   background-color: #ffffff;
   display: inline-block;
   position: relative;
-  //overflow: hidden;
 `;
 
 const Medal = styled.div`
