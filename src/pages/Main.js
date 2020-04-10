@@ -159,12 +159,12 @@ const MainWrap = styled.div`
 `;
 
 const MainAniv = styled.div`
-  display: flex;
-  justify-content: center;
+  text-align: center;
   margin-top: 36px;
   margin-bottom: 50px;
   img {
     width: 320px;
+    height: auto;
   }
 `;
 

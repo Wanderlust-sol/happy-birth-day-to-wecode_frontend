@@ -63,7 +63,7 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
     }
   };
 
-  const handleVote = async () => {
+  const handleVote = async() => {
     try {
       const code = localStorage.getItem("user") || "";
 
@@ -101,7 +101,7 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
           key={idx}
           style={{ display: "flex", objectFit: "cover", textAlign: "center" }}
         >
-          <img src={param} ref={imageRef} alt="img" />
+          <img src={param} ref={imageRef} alt="img"/>
         </SliderLi>
       );
     });
@@ -109,7 +109,7 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
   return (
     <>
       <ModalContainer onClick={modalShow} isVisible={isVisible}>
-        <Background />
+        <Background/>
         <ModalMain
           onMouseEnter={() => setIsEntered(!isEntered)}
           onMouseLeave={() => setIsEntered(!isEntered)}
@@ -139,9 +139,9 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
           </ModalArtsWrapper>
           <ModalBottom>
             <BottomLeft>
-              <ArrowRight />
+              <ArrowRight/>
               <CreatorName>
-                <span>{batch}기 {artist}</span>
+                {batch}기 {artist}
               </CreatorName>
             </BottomLeft>
             {vote !== false && (
@@ -258,8 +258,8 @@ const ModalArtsWrapper = styled.div`
     &-left {
       left: 30px;
       display: ${(props) => {
-        return props.currentSlide === 0 ? "none" : "inline-block";
-      }};
+  return props.currentSlide === 0 ? "none" : "inline-block";
+}};
       background: url("https://res.kurly.com/pc/service/main/1908/btn_prev_default.png?v=1")
         no-repeat 50% 50%;
     }
@@ -267,10 +267,10 @@ const ModalArtsWrapper = styled.div`
     &-right {
       right: 30px;
       display: ${(props) => {
-        return props.currentSlide === props.imageLength - 1
-          ? "none"
-          : "inline-block";
-      }};
+  return props.currentSlide === props.imageLength - 1
+    ? "none"
+    : "inline-block";
+}};
       background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png?v=1")
         no-repeat 50% 50%;
     }
@@ -325,31 +325,22 @@ const ArrowRight = styled.div`
   background-size: cover;
 `;
 
-const CreatorName = styled.div`
-  width: 75px;
-  height: 22px;
+const CreatorName = styled.span`
   background-color: #000000;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 8px 10px;
   margin-left: 4px;
+  border-radius: 2px;
 
-  span {
-    font-family: NotoSansCJKkr;
     font-size: 15px;
     font-weight: 900;
     color: #ffffff;
     text-align: center;
-  }
 `;
 
 const BottomRight = styled.div`
-  width: 92px;
-  height: 28px;
   border-radius: 2px;
   background-color: #1200ff;
-
+  padding: 8px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -359,8 +350,7 @@ const BottomRight = styled.div`
   cursor: pointer;
 
   span {
-    font-family: NotoSansCJKkr;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     color: #ffffff;
   }
