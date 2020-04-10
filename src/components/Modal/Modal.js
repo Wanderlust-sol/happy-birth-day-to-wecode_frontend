@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
+import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import xButton from "img/x-mark-48.png";
 import arrowRight from "img/arrow-right.png";
+import { API_URL } from "../../config";
 
 const settings = {
   infinite: false,
@@ -26,7 +28,7 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
   const [imageLength, setImageLength] = useState(0);
   const imageRef = useRef();
   const sliderRef = useRef();
-  const { image_urls: image, artist, batch } = info;
+  const { image_urls: image, artist, batch, artwork_id } = info;
 
   useEffect(() => {
     image && getImageSize();
@@ -58,6 +60,34 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
     } else if (btn === "btn-right") {
       setCurrentSlide(currentSlide + 1);
       sliderRef.current.slickNext();
+    }
+  };
+
+  const handleVote = async () => {
+    try {
+      const code = localStorage.getItem("user") || "";
+
+      const res = await axios.post(
+        `${API_URL}/vote`,
+        {
+          artwork: artwork_id,
+        },
+        {
+          headers: {
+            code,
+          },
+        }
+      );
+      localStorage.setItem("user", res.data.code);
+      alert("소중한 1표 땡큐요~😘");
+    } catch (err) {
+      if (err.response.status === 409) {
+        alert("이미 투표하신 작품입니다.🙊");
+      } else if (err.response.status === 400) {
+        alert("해당 부문에 투표권이 끝났습니다!");
+      } else {
+        alert("서버 에러가 발생했나봐요! 알려주세요.");
+      }
     }
   };
 
@@ -115,7 +145,7 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
               </CreatorName>
             </BottomLeft>
             {vote !== false && (
-              <BottomRight>
+              <BottomRight onClick={handleVote}>
                 <span>투표하기</span>
               </BottomRight>
             )}

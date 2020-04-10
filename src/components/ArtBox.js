@@ -7,8 +7,6 @@ import ModalVote from "components/Modal";
 
 const ArtBox = (props) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [realWidth, setRealWidth] = useState(0);
-  const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
   const { vote, info, top } = props;
