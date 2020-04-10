@@ -19,9 +19,6 @@ export class Contributor extends Component {
   render() {
     return (
       <ContributorPage pattern={pattern}>
-        <Header>
-          <div />
-        </Header>
         <Body>
           <Title>
             <div className="title">Happy 1st B-Day</div>
@@ -145,27 +142,9 @@ export class Contributor extends Component {
 export default Contributor;
 
 const ContributorPage = styled.div`
-  width: 100vw;
-  /* height: 100vh; */
   background-image: url(${pattern});
   * {
     box-sizing: border-box;
-  }
-`;
-
-const Header = styled.div`
-  height: 64px;
-  background-color: black;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  div {
-    background-image: url("https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/logo/wecode_logo.png");
-    width: 140px;
-    height: 38px;
-    background-size: contain;
-    background-repeat: no-repeat;
   }
 `;
 
