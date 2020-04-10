@@ -66,8 +66,8 @@ const ArtBox = (props) => {
   return (
     <Container isVisible={isVisible}>
       <ModalVote
+        info={info}
         vote={vote}
-        image={image_urls}
         isVisible={isVisible}
         setIsVisible={setIsVisible}
       />

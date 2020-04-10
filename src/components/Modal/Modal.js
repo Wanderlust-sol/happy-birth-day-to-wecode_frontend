@@ -17,7 +17,7 @@ const settings = {
   centerMode: true,
 };
 
-const ModalVote = ({ isVisible, setIsVisible, image, vote }) => {
+const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
   const [isEntered, setIsEntered] = useState(false);
   const [isButtonEntered, setIsButtonEntered] = useState(false);
   const [realWidth, setRealWidth] = useState(0);
@@ -26,6 +26,7 @@ const ModalVote = ({ isVisible, setIsVisible, image, vote }) => {
   const [imageLength, setImageLength] = useState(0);
   const imageRef = useRef();
   const sliderRef = useRef();
+  const { image_urls: image, artist, batch } = info;
 
   useEffect(() => {
     image && getImageSize();
@@ -110,7 +111,7 @@ const ModalVote = ({ isVisible, setIsVisible, image, vote }) => {
             <BottomLeft>
               <ArrowRight />
               <CreatorName>
-                <span>6기 오종택</span>
+                <span>{batch}기 {artist}</span>
               </CreatorName>
             </BottomLeft>
             {vote !== false && (
@@ -178,6 +179,7 @@ const CloseButton = styled.div`
 
 const ModalArts = styled.ul`
   width: 898px;
+   //width: 100%;
   height: 562px;
 
   display: flex;
@@ -193,7 +195,7 @@ const ModalArts = styled.ul`
     justify-content: center;
     /* align-items: center; */
     /* position: relative; */
-    background-color: black;
+    //background-color: black;
     img {
       width: 100%;
       height: 100%;
@@ -246,8 +248,9 @@ const ModalArtsWrapper = styled.div`
 `;
 
 const SliderLi = styled.div`
-  background: black;
+  //background: black;
   width: 898px;
+  //width: 100%;
   height: 562px;
 
   display: flex !important;
