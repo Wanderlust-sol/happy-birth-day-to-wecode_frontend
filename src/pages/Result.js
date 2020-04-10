@@ -62,10 +62,11 @@ const Page = styled.div`
 `;
 
 const Section = styled.section`
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 `;
 
 const Title = styled.p`
+  margin-bottom: 20px;
     padding-bottom: 15px;
     border-bottom: 1px solid black;
     font-size: 21px;

@@ -3,8 +3,10 @@ import axios from "axios";
 import { API_URL } from "config";
 import styled from "styled-components";
 import medal from "img/medal.png";
+import ModalVote from "components/Modal";
 
-const ArtBox = props => {
+const ArtBox = (props) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [realWidth, setRealWidth] = useState(0);
   const [realHeight, setRealHeight] = useState(0);
   const [popup, setPopup] = useState(false);
@@ -19,47 +21,63 @@ const ArtBox = props => {
       const code = localStorage.getItem('user') || '';
 
       const res = await axios.post(`${API_URL}/vote`, {
-        artwork: artwork_id,
+        artwork: artwork_id
+      }, {
+        headers: {
+          code
+        }
       });
-
+console.log(res, res.status)
       localStorage.setItem('user', res.data.code);
       alert("소중한 1표 땡큐요~😘");
       setPopup(false);
     } catch (err) {
       console.log(err);
+      if (err.response.status === 409) {
+        alert('이미 투표하신 작품입니다.🙊');
+      } else if (err.response.status === 400) {
+        alert('해당 부문에 투표권이 끝났습니다!');
+      } else {
+        alert('서버 에러가 발생했나봐요! 알려주세요.')
+      }
     }
   };
 
   const getImageSize = () => {
-    const realWidth = imageRef.current.naturalWidth;
-    const realHeight = imageRef.current.naturalHeight;
-    setRealWidth(realWidth);
-    setRealHeight(realHeight);
-    console.log(realWidth, realHeight);
+    // const realWidth = imageRef.current.naturalWidth;
+    // const realHeight = imageRef.current.naturalHeight;
+    // setRealWidth(realWidth);
+    // setRealHeight(realHeight);
+    // console.log(realWidth, realHeight);
   };
 
   useEffect(() => {
-    getImageSize();
+    // getImageSize();
   }, []);
 
   return (
     <Container>
+      <ModalVote
+        vote={vote}
+        image={image_urls}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+      />
       <ArtContainer>
         {top && <Medal><span>{top}</span></Medal>}
         <Art
+          onClick={() => setIsVisible(!isVisible)}
           src={image_urls[0]}
           ref={imageRef}
-          // width="300"
-          // height="200"
-          // Width={realWidth}
-          // Height={realHeight}
         ></Art>
       </ArtContainer>
       {vote !== false && (
         <Hidden>
           <Content pop={popup}>
             <ContentTitle>
-              <Name>{batch}기 {artist}</Name>
+              <Name>
+                {batch}기 {artist}
+              </Name>
               <Vote onClick={() => setPopup(true)}>투표하기</Vote>
             </ContentTitle>
             <PopupContainer>
@@ -130,13 +148,13 @@ const Art = styled.img`
   object-fit: cover;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  cursor: pointer;
 `;
 
 const Content = styled.div`
   width: 100%;
   transform: translateX(${props => (props.pop ? "-100%" : "0px")});
   transition: transform 0.5s ease-in-out;
-  //overflow: hidden;
 `;
 
 const ContentTitle = styled.div`
