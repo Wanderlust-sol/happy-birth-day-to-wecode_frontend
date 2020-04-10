@@ -1,40 +1,39 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import axios from "axios";
 import ArtBox from "components/ArtBox";
 import anivimg from "../img/title@2x.png";
-import { API_URL } from 'config.js';
+import { API_URL } from "config.js";
 
 const artInfo = {
-  '/poem3': {
+  "/poem3": {
     url: 2,
-    data: 'three_rows'
+    data: "three_rows",
   },
-  '/pic': {
+  "/pic": {
     url: 1,
-    data: 'picture'
+    data: "picture",
   },
-  '/poem': {
+  "/poem": {
     url: 3,
-    data: 'poems'
-  }
+    data: "poems",
+  },
 };
 
 class Main extends Component {
-
   constructor(props) {
     super(props);
 
     let activeTab = props.location.pathname;
 
     if (props.location.pathname === "/") {
-      activeTab = '/poem3'
+      activeTab = "/poem3";
     }
 
     this.state = {
       activeTab,
-      data: []
+      data: [],
     };
   }
 
@@ -53,11 +52,11 @@ class Main extends Component {
     const result = await axios(`${API_URL}/artwork/${artInfo[activeTab].url}`);
 
     this.setState({
-      data: result.data[artInfo[activeTab].data]
-    })
+      data: result.data[artInfo[activeTab].data],
+    });
   }
 
-  toPage = path => {
+  toPage = (path) => {
     this.setState({
       activeTab: path,
     });
@@ -70,25 +69,36 @@ class Main extends Component {
     return (
       <MainWrap>
         <MainAniv>
-          <img src={anivimg}/>
+          <img src={anivimg} />
         </MainAniv>
         <MainUl>
-          <Mainli selected={activeTab === "/poem3"} onClick={() => this.toPage('/poem3')}>
+          <Mainli
+            selected={activeTab === "/poem3"}
+            onClick={() => this.toPage("/poem3")}
+          >
             삼 행 시
           </Mainli>
-          <Mainli selected={activeTab === "/pic"} onClick={() => this.toPage('/pic')}>
+          <Mainli
+            selected={activeTab === "/pic"}
+            onClick={() => this.toPage("/pic")}
+          >
             그 림
           </Mainli>
-          <Mainli selected={activeTab === "/poem"} onClick={() => this.toPage('/poem')}>
+          <Mainli
+            selected={activeTab === "/poem"}
+            onClick={() => this.toPage("/poem")}
+          >
             시
           </Mainli>
-          <Link to="/result"><ResultButton>
-            결과 보기
-          </ResultButton></Link>
+          <Link to="/result">
+            <ResultButton>결과 보기</ResultButton>
+          </Link>
         </MainUl>
 
         <Wrap>
-          {data.map(el => <ArtBox info={el}/>)}
+          {data.map((el) => (
+            <ArtBox info={el} />
+          ))}
         </Wrap>
       </MainWrap>
     );
@@ -131,8 +141,9 @@ const Mainli = styled.li`
   width: 250px;
   height: 50px;
   text-align: center;
-  color:  ${({ selected }) => selected ? 'white' : 'rgba(0,0,0,0.4)'};
-  background-color:  ${({ selected }) => selected ? 'black' : 'rgba(0,0,0,0.1)'};
+  color: ${({ selected }) => (selected ? "white" : "rgba(0,0,0,0.4)")};
+  background-color: ${({ selected }) =>
+    selected ? "black" : "rgba(0,0,0,0.1)"};
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   font-weight: 900;
@@ -144,12 +155,12 @@ const Wrap = styled.div`
 `;
 
 const ResultButton = styled.div`
-   position: absolute;
-   right: calc(10% - 90px);
-   bottom: 10px;
-   padding: 10px 20px;
-   border-radius: 5px;
-   cursor: pointer;
-   background-color: black;
-   color: white;
+  position: absolute;
+  right: calc(10% - 90px);
+  bottom: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
 `;

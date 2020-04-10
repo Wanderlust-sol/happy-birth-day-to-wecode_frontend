@@ -174,8 +174,8 @@ const CloseButton = styled.div`
 `;
 
 const ModalArts = styled.ul`
-  width: 900px;
-  height: 563px;
+  width: 898px;
+  height: 562px;
 
   display: flex;
   justify-content: center;
@@ -239,8 +239,8 @@ const ModalArtsWrapper = styled.div`
 
 const SliderLi = styled.div`
   background: black;
-  width: 900px;
-  height: 563px;
+  width: 898px;
+  height: 562px;
 
   display: flex !important;
   justify-content: center;
