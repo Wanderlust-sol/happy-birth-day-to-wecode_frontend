@@ -186,11 +186,13 @@ const DropDownWrapper = styled.div`
   height: 50px;
   border: solid 1px #000000;
   border-bottom: none;
-  background-color: #ffffff;
+  background-color: black;
+  color: white;
   display: flex;
   cursor: pointer;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  margin-left: 20px;
 `;
 
 const DropDownLeft = styled.div`
@@ -223,6 +225,7 @@ const DropDownMenu = styled.ul`
   top: 53px;
   display: ${(props) => (props.show ? "block" : "none")};
   z-index: 5;
+  margin-left: 20px;
 `;
 
 const MainUl = styled.ul`
