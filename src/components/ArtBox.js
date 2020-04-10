@@ -12,33 +12,37 @@ const ArtBox = (props) => {
   const [popup, setPopup] = useState(false);
   const imageRef = useRef(null);
   const { vote, info, top } = props;
-  const { artist, image_urls, batch, artwork_id } = info || { artist: "오종택", image_urls: [], batch: 6 };
+  const { artist, image_urls, batch, artwork_id } = info || {
+    artist: "오종택",
+    image_urls: [],
+    batch: 6,
+  };
 
-  const handleVote = async() => {
-    // alert("투표되었습니다~! 땡큐 베리 마취");
-    // setPopup(false);
+  const handleVote = async () => {
     try {
-      const code = localStorage.getItem('user') || '';
+      const code = localStorage.getItem("user") || "";
 
-      const res = await axios.post(`${API_URL}/vote`, {
-        artwork: artwork_id
-      }, {
-        headers: {
-          code
+      const res = await axios.post(
+        `${API_URL}/vote`,
+        {
+          artwork: artwork_id,
+        },
+        {
+          headers: {
+            code,
+          },
         }
-      });
-console.log(res, res.status)
-      localStorage.setItem('user', res.data.code);
+      );
+      localStorage.setItem("user", res.data.code);
       alert("소중한 1표 땡큐요~😘");
       setPopup(false);
     } catch (err) {
-      console.log(err);
       if (err.response.status === 409) {
-        alert('이미 투표하신 작품입니다.🙊');
+        alert("이미 투표하신 작품입니다.🙊");
       } else if (err.response.status === 400) {
-        alert('해당 부문에 투표권이 끝났습니다!');
+        alert("해당 부문에 투표권이 끝났습니다!");
       } else {
-        alert('서버 에러가 발생했나봐요! 알려주세요.')
+        alert("서버 에러가 발생했나봐요! 알려주세요.");
       }
     }
   };
@@ -52,11 +56,15 @@ console.log(res, res.status)
   };
 
   useEffect(() => {
-    // getImageSize();
-  }, []);
+    if (isVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isVisible]);
 
   return (
-    <Container>
+    <Container isVisible={isVisible}>
       <ModalVote
         vote={vote}
         image={image_urls}
@@ -64,7 +72,11 @@ console.log(res, res.status)
         setIsVisible={setIsVisible}
       />
       <ArtContainer>
-        {top && <Medal><span>{top}</span></Medal>}
+        {top && (
+          <Medal>
+            <span>{top}</span>
+          </Medal>
+        )}
         <Art
           onClick={() => setIsVisible(!isVisible)}
           src={image_urls[0]}
@@ -104,7 +116,6 @@ const Container = styled.div`
   background-color: #ffffff;
   display: inline-block;
   position: relative;
-  //overflow: hidden;
 `;
 
 const Medal = styled.div`
@@ -117,9 +128,9 @@ const Medal = styled.div`
   top: -10px;
   left: -20px;
   padding-top: 8px;
-  
+
   span {
-border-radius: 50%;
+    border-radius: 50%;
     display: inline-block;
     width: 26px;
     height: 26px;
@@ -153,7 +164,7 @@ const Art = styled.img`
 
 const Content = styled.div`
   width: 100%;
-  transform: translateX(${props => (props.pop ? "-100%" : "0px")});
+  transform: translateX(${(props) => (props.pop ? "-100%" : "0px")});
   transition: transform 0.5s ease-in-out;
 `;
 
@@ -207,7 +218,7 @@ const Yes = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
- background-color: #1200ff;
+  background-color: #1200ff;
   color: white;
   cursor: pointer;
 `;
@@ -221,7 +232,7 @@ const No = styled.div`
   align-items: center;
   cursor: pointer;
   border: 1px solid black;
-    color: black;
+  color: black;
 `;
 
 const PopupContainer = styled.div`

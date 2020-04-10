@@ -13,6 +13,8 @@ const settings = {
   slidesToScroll: 1,
   swipe: false,
   adaptiveHeight: true,
+  variableWidth: true,
+  centerMode: true,
 };
 
 const ModalVote = ({ isVisible, setIsVisible, image, vote }) => {
@@ -66,7 +68,7 @@ const ModalVote = ({ isVisible, setIsVisible, image, vote }) => {
           Width={realWidth}
           Height={realHeight}
           key={idx}
-          style={{ display: "flex" }}
+          style={{ display: "flex", objectFit: "cover", textAlign: "center" }}
         >
           <img src={param} ref={imageRef} alt="img" />
         </SliderLi>
@@ -167,6 +169,7 @@ const CloseButton = styled.div`
   height: 20px;
   background: transparent url(${xButton}) no-repeat center center;
   background-size: cover;
+  cursor: pointer;
 
   position: absolute;
   top: -30px;
@@ -174,8 +177,8 @@ const CloseButton = styled.div`
 `;
 
 const ModalArts = styled.ul`
-  width: 900px;
-  height: 563px;
+  width: 898px;
+  height: 562px;
 
   display: flex;
   justify-content: center;
@@ -192,6 +195,11 @@ const ModalArts = styled.ul`
     /* position: relative; */
     background-color: black;
     img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      min-width: 800px;
+
       /* position: absolute;
       top: 50%;
       left: 50%;
@@ -239,8 +247,8 @@ const ModalArtsWrapper = styled.div`
 
 const SliderLi = styled.div`
   background: black;
-  width: 900px;
-  height: 563px;
+  width: 898px;
+  height: 562px;
 
   display: flex !important;
   justify-content: center;
@@ -253,10 +261,8 @@ const SliderLi = styled.div`
 
   img {
     /* align-self: center; */
-    width: ${(props) =>
-      props.Width > props.Height ? "100%" : props.Width + "px"};
-    height: ${(props) =>
-      props.Height >= props.Width ? "100%" : props.Height + "px"};
+    width: ${(props) => (props.Width >= 1000 ? "100%" : props.Width + "px")};
+    height: ${(props) => (props.Height >= 1000 ? "100%" : props.Height + "px")};
   }
 `;
 

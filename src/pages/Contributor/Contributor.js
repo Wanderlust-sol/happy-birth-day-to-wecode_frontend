@@ -14,14 +14,13 @@ const kwon = "https://github.com/Wanderlust-sol";
 const oh = "https://github.com/saengmotmi";
 const yoo = "https://github.com/k904808";
 const leeso = "https://soheon-lee.github.io/";
+const son = "https://github.com/jamessoun93";
+const doori = "https://github.com/gollumnima";
 
 export class Contributor extends Component {
   render() {
     return (
       <ContributorPage pattern={pattern}>
-        <Header>
-          <div />
-        </Header>
         <Body>
           <Title>
             <div className="title">Happy 1st B-Day</div>
@@ -82,6 +81,16 @@ export class Contributor extends Component {
                 6기 유경희
               </a>
             </span>
+            <span className="nameTag son">
+              <a href={son} rel="noopener noreferrer" target="_blank">
+                멘토 손승현
+              </a>
+            </span>
+            <span className="nameTag doori">
+              <a href={doori} rel="noopener noreferrer" target="_blank">
+                멘토 김두리
+              </a>
+            </span>
           </ContributorImg>
           <NameList>
             <div>Wecoders</div>
@@ -96,8 +105,18 @@ export class Contributor extends Component {
               </a>
             </li>
             <li>
+              <a href={leeso} rel="noopener noreferrer" target="_blank">
+                멘토 김두리
+              </a>
+            </li>
+            <li>
               <a href={yang} rel="noopener noreferrer" target="_blank">
                 멘토 양준식
+              </a>
+            </li>
+            <li>
+              <a href={leeso} rel="noopener noreferrer" target="_blank">
+                멘토 손승현
               </a>
             </li>
             <li>
@@ -145,27 +164,9 @@ export class Contributor extends Component {
 export default Contributor;
 
 const ContributorPage = styled.div`
-  width: 100vw;
-  /* height: 100vh; */
   background-image: url(${pattern});
   * {
     box-sizing: border-box;
-  }
-`;
-
-const Header = styled.div`
-  height: 64px;
-  background-color: black;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  div {
-    background-image: url("https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/logo/wecode_logo.png");
-    width: 140px;
-    height: 38px;
-    background-size: contain;
-    background-repeat: no-repeat;
   }
 `;
 
@@ -315,6 +316,16 @@ const ContributorImg = styled.div`
     position: absolute;
     top: 220px;
     left: 660px;
+  }
+  .son {
+    position: absolute;
+    top: 280px;
+    left: 40px;
+  }
+  .doori {
+    position: absolute;
+    top: 250px;
+    left: 100px;
   }
 `;
 
