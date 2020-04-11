@@ -186,7 +186,7 @@ const MainUlMobile = styled.div`
 `;
 
 const Notice = styled.div`
-  margin: 50px;
+  margin: 50px 0;
   font-size: 17px;
   
   p {

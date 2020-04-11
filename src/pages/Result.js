@@ -40,7 +40,7 @@ class Result extends Component {
           <Title>삼행시 부문 TOP 3</Title>
 
           <Center>
-            {this.state.poem3.map((el, idx) => (
+            {this.state.poem3.filter(el => el.count > 0).map((el, idx) => (
               <ArtBox info={el} vote={false} top={idx + 1} />
             ))}
           </Center>
@@ -48,7 +48,7 @@ class Result extends Component {
         <Section>
           <Title>그림 부문 TOP 3</Title>
           <Center>
-            {this.state.drawing.map((el, idx) => (
+            {this.state.drawing.filter(el => el.count > 0).map((el, idx) => (
               <ArtBox info={el} vote={false} top={idx + 1} />
             ))}
           </Center>
@@ -56,7 +56,7 @@ class Result extends Component {
         <Section>
           <Title>시 부문 TOP 3</Title>
           <Center>
-            {this.state.poem.map((el, idx) => (
+            {this.state.poem.filter(el => el.count > 0).map((el, idx) => (
               <ArtBox info={el} vote={false} top={idx + 1} />
             ))}
           </Center>
