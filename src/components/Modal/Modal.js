@@ -183,7 +183,7 @@ const Background = styled.div`
 const ModalMain = styled.div`
   z-index: 2;
   max-width: 800px;
-  margin: 50px auto 0;
+  margin: 30px auto 0;
   position: relative;
 
   border-radius: 4px;
