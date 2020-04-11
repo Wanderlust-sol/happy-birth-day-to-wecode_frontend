@@ -9,17 +9,17 @@ import { API_URL } from "config.js";
 const artInfo = {
   "/poem3": {
     url: 2,
-    data: "three_rows",
+    data: "삼행시",
     label: "삼 행 시",
   },
   "/pic": {
     url: 1,
-    data: "picture",
+    data: "그림",
     label: "그 림",
   },
   "/poem": {
     url: 3,
-    data: "poems",
+    data: "시",
     label: "시",
   },
 };
