@@ -3,23 +3,23 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ArtBox from "components/ArtBox";
-import anivimg from "../img/title@2x.png";
+import anivimg from "../images/title@2x.png";
 import { API_URL } from "config.js";
 
 const artInfo = {
   "/poem3": {
     url: 2,
-    data: "삼행시",
+    data: "three_rows",
     label: "삼 행 시",
   },
   "/pic": {
     url: 1,
-    data: "그림",
+    data: "picture",
     label: "그 림",
   },
   "/poem": {
     url: 3,
-    data: "시",
+    data: "poems",
     label: "시",
   },
 };
@@ -140,7 +140,7 @@ class Main extends Component {
 
         <Wrap>
           {data.map((el) => (
-            <ArtBox info={el} />
+            <ArtBox key={el.artwork_id} info={el} />
           ))}
         </Wrap>
       </MainWrap>

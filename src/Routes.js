@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-import backimg from "img/pattern-bg.svg";
+import backimg from "images/pattern-bg.svg";
 import Main from "./pages/Main";
 import ArtList from "components/ArtList";
 import ModalVote from "./components/Modal";
