@@ -4,8 +4,8 @@ import Slider from "react-slick";
 import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import xButton from "img/x-mark-48.png";
-import arrowRight from "img/arrow-right.png";
+import xButton from "images/x-mark-48.png";
+import arrowRight from "images/arrow-right.png";
 import { API_URL } from "../../config";
 
 const settings = {
@@ -14,8 +14,8 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   swipe: false,
-  adaptiveHeight: true,
-  variableWidth: true,
+  // adaptiveHeight: true,
+  // variableWidth: true,
   centerMode: true,
 };
 
@@ -28,12 +28,12 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
   const [imageLength, setImageLength] = useState(0);
   const imageRef = useRef();
   const sliderRef = useRef();
-  const { image_urls: image, artist, batch, artwork_id } = info;
+  const { image_urls, artist, batch, artwork_id } = info;
 
   useEffect(() => {
-    image && getImageSize();
-    setImageLength(image.length);
-  }, [image]);
+    // getImageSize();
+    // setImageLength(image_urls.length);
+  }, [image_urls]);
 
   const modalShow = () => {
     if (!isEntered || isButtonEntered) {
@@ -94,68 +94,64 @@ const ModalVote = ({ isVisible, setIsVisible, vote, info }) => {
     }
   };
 
-  const imageMapArr =
-    image &&
-    image.map((param, idx) => {
-      return (
-        <SliderLi
-          Width={realWidth}
-          Height={realHeight}
-          key={idx}
-          style={{ display: "flex", objectFit: "cover", textAlign: "center" }}
-        >
-          <img src={param} ref={imageRef} alt="img"/>
-        </SliderLi>
-      );
-    });
-
   return (
-    <>
-      <ModalContainer onClick={modalShow} isVisible={isVisible}>
-        <Background/>
-        <ModalMain
-          onMouseEnter={() => setIsEntered(!isEntered)}
-          onMouseLeave={() => setIsEntered(!isEntered)}
+    <ModalContainer onClick={modalShow} isVisible={isVisible}>
+      <Background />
+      <ModalMain
+        onMouseEnter={() => setIsEntered(!isEntered)}
+        onMouseLeave={() => setIsEntered(!isEntered)}
+      >
+        <CloseButton
+          onClick={modalShow}
+          onMouseEnter={() => setIsButtonEntered(!isButtonEntered)}
+          onMouseLeave={() => setIsButtonEntered(!isButtonEntered)}
+        />
+        <ModalArtsWrapper
+          currentSlide={currentSlide}
+          imageLength={image_urls.length}
         >
-          <CloseButton
-            onClick={modalShow}
-            onMouseEnter={() => setIsButtonEntered(!isButtonEntered)}
-            onMouseLeave={() => setIsButtonEntered(!isButtonEntered)}
+          <div
+            className="btn btn-left btn-scroll btn-scroll-left"
+            onClick={(event) => moveSlide(event)}
           />
-          <ModalArtsWrapper
-            currentSlide={currentSlide}
-            imageLength={imageLength}
-          >
-            <div
-              className="btn btn-left btn-scroll btn-scroll-left"
-              onClick={(event) => moveSlide(event)}
-            />
-            <div
-              className="btn btn-right btn-scroll btn-scroll-right"
-              onClick={(event) => moveSlide(event)}
-            />
-            <ModalArts>
-              <Slider {...settings} ref={sliderRef}>
-                {imageMapArr}
-              </Slider>
-            </ModalArts>
-          </ModalArtsWrapper>
-          <ModalBottom>
-            <BottomLeft>
-              <ArrowRight/>
-              <CreatorName>
-                {batch}기 {artist}
-              </CreatorName>
-            </BottomLeft>
-            {vote !== false && (
-              <BottomRight onClick={handleVote}>
-                <span>투표하기</span>
-              </BottomRight>
-            )}
-          </ModalBottom>
-        </ModalMain>
-      </ModalContainer>
-    </>
+          <div
+            className="btn btn-right btn-scroll btn-scroll-right"
+            onClick={(event) => moveSlide(event)}
+          />
+          <ModalArts>
+            <Slider {...settings} ref={sliderRef}>
+              {image_urls.map((param, idx) => (
+                <SliderLi
+                  Width={realWidth}
+                  Height={realHeight}
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    objectFit: "cover",
+                    textAlign: "center",
+                  }}
+                >
+                  <img src={param} ref={imageRef} alt="img" />
+                </SliderLi>
+              ))}
+            </Slider>
+          </ModalArts>
+        </ModalArtsWrapper>
+        <ModalBottom>
+          <BottomLeft>
+            <ArrowRight />
+            <CreatorName>
+              {batch}기 {artist}
+            </CreatorName>
+          </BottomLeft>
+          {vote !== false && (
+            <BottomRight onClick={handleVote}>
+              <span>투표하기</span>
+            </BottomRight>
+          )}
+        </ModalBottom>
+      </ModalMain>
+    </ModalContainer>
   );
 };
 
@@ -190,7 +186,7 @@ const Background = styled.div`
 const ModalMain = styled.div`
   z-index: 2;
   max-width: 800px;
-  margin: 100px auto 0;
+  margin: 30px auto 0;
   position: relative;
 
   border-radius: 4px;
@@ -212,7 +208,7 @@ const CloseButton = styled.div`
 
 const ModalArts = styled.ul`
   max-width: 898px;
-   width: 100%;
+  width: 100%;
   height: 562px;
 
   display: flex;
@@ -260,20 +256,14 @@ const ModalArtsWrapper = styled.div`
 
     &-left {
       left: 30px;
-      display: ${(props) => {
-  return props.currentSlide === 0 ? "none" : "inline-block";
-}};
+      display: ${(props) => props.currentSlide === 0 ? "none" : "inline-block"};
       background: url("https://res.kurly.com/pc/service/main/1908/btn_prev_default.png?v=1")
         no-repeat 50% 50%;
     }
 
     &-right {
       right: 30px;
-      display: ${(props) => {
-  return props.currentSlide === props.imageLength - 1
-    ? "none"
-    : "inline-block";
-}};
+      display: ${(props) => props.currentSlide === props.imageLength - 1 ? "none" : "inline-block"};
       background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png?v=1")
         no-repeat 50% 50%;
     }
@@ -297,8 +287,8 @@ const SliderLi = styled.div`
 
   img {
     /* align-self: center; */
-    width: ${(props) => (props.Width >= 1000 ? "100%" : props.Width + "px")};
-    height: ${(props) => (props.Height >= 1000 ? "100%" : props.Height + "px")};
+    /*width: ${(props) => (props.Width >= 1000 ? "100%" : props.Width + "px")};
+    height: ${(props) => (props.Height >= 1000 ? "100%" : props.Height + "px")};*/
   }
 `;
 
@@ -334,10 +324,10 @@ const CreatorName = styled.span`
   margin-left: 4px;
   border-radius: 2px;
 
-    font-size: 15px;
-    font-weight: 900;
-    color: #ffffff;
-    text-align: center;
+  font-size: 15px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
 `;
 
 const BottomRight = styled.div`

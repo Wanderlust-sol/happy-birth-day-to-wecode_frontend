@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ArtBox from "components/ArtBox";
-import anivimg from "../img/title.png";
+import anivimg from "../images/title.png";
 import { API_URL } from "config.js";
 
 const artInfo = {
@@ -83,6 +83,10 @@ class Main extends Component {
         <MainAniv>
           <img src={anivimg} />
         </MainAniv>
+        <Notice>
+          <p>투표권: 삼행시 - 5개 / 그림 - 1개 / 시  - 1개</p>
+          <p>한 번 투표하면 취소할 수 없으니 신중하게 해주세요!</p>
+        </Notice>
         <MainUl>
           <Mainli
             selected={activeTab === "/poem3"}
@@ -140,7 +144,7 @@ class Main extends Component {
 
         <Wrap>
           {data.map((el) => (
-            <ArtBox info={el} />
+            <ArtBox key={el.artwork_id} info={el} />
           ))}
         </Wrap>
       </MainWrap>
@@ -178,6 +182,15 @@ const MainUlMobile = styled.div`
 
   @media (min-width: 769px) {
     display: none;
+  }
+`;
+
+const Notice = styled.div`
+  margin: 50px 0;
+  font-size: 17px;
+  
+  p {
+    line-height: 25px;
   }
 `;
 

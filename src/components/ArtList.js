@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ArtBox from "components/ArtBox";
-import Image from "img/falsekind.png";
+import Image from "images/falsekind.png";
 
 const ArtList = () => {
   return (

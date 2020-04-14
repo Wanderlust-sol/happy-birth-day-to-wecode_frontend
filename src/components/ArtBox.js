@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "config";
 import styled from "styled-components";
-import medal from "img/medal.png";
+import medal from "images/medal.png";
 import ModalVote from "components/Modal";
 
 const ArtBox = (props) => {
@@ -19,7 +19,7 @@ const ArtBox = (props) => {
   const handleVote = async () => {
     alert("투표가 종료되었습니다 ~ 😘");
     return;
-    
+
     try {
       const code = localStorage.getItem("user") || "";
 
