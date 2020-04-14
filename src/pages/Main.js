@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ArtBox from "components/ArtBox";
-import anivimg from "../img/title@2x.png";
+import anivimg from "../img/title.png";
 import { API_URL } from "config.js";
 
 const artInfo = {

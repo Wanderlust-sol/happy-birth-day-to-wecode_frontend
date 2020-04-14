@@ -17,6 +17,9 @@ const ArtBox = (props) => {
   };
 
   const handleVote = async () => {
+    alert("투표가 종료되었습니다 ~ 😘");
+    return;
+    
     try {
       const code = localStorage.getItem("user") || "";
 
